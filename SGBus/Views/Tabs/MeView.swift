@@ -8,7 +8,7 @@ struct MeView: View {
             List {
                 Section {
                     Button {
-                        withAnimation { theme.toggle() }
+                        withAnimation(.easeOut(duration: 0.25)) { theme.toggle() }
                     } label: {
                         HStack {
                             Image(systemName: theme.isDarkMode ? "moon.fill" : "sun.max.fill")
@@ -24,10 +24,11 @@ struct MeView: View {
                         }
                     }
                 } header: {
-                    Text("Preferences")
+                    Text("Settings")
                         .font(.system(.caption, design: .monospaced))
                 }
             }
+            .listStyle(.plain)
             .scrollContentBackground(.hidden)
             .background(theme.background)
             .navigationTitle("Me")

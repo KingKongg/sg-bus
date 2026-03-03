@@ -53,7 +53,7 @@ struct BusStopDetailView: View {
                                 arrival: arrival,
                                 isFavourite: favouritesManager.isFavourite(arrival.serviceNo),
                                 onToggleFavourite: {
-                                    withAnimation { favouritesManager.toggleFavourite(arrival.serviceNo) }
+                                    withAnimation(.easeOut(duration: 0.2)) { favouritesManager.toggleFavourite(arrival.serviceNo) }
                                 }
                             )
                         }
@@ -64,6 +64,7 @@ struct BusStopDetailView: View {
                             .padding(.leading, 84)
                     }
                 }
+                .animation(.snappy, value: viewModel.arrivals)
             }
             .padding(.vertical, 16)
         }

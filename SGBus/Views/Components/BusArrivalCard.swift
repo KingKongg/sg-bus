@@ -20,7 +20,9 @@ struct BusArrivalCard: View {
                 VStack(alignment: .trailing, spacing: 2) {
                     Text(primaryArrivalText)
                         .font(.system(size: 28, weight: .bold, design: .monospaced))
+                        .contentTransition(.numericText())
                         .foregroundColor(primaryArrivalColor)
+                        .animation(.snappy(duration: 0.3), value: primaryArrivalText)
 
                     Text("to arrival")
                         .font(.system(.caption, design: .monospaced))
@@ -96,6 +98,7 @@ struct BusArrivalCard: View {
                     .font(.system(.caption, design: .monospaced))
                     .fontWeight(.semibold)
                     .foregroundColor(theme.textPrimary)
+                    .contentTransition(.numericText())
             } else {
                 Text("-")
                     .font(.system(.caption, design: .monospaced))
@@ -110,6 +113,7 @@ struct BusArrivalCard: View {
                     .font(.system(.caption, design: .monospaced))
                     .fontWeight(.semibold)
                     .foregroundColor(theme.textPrimary)
+                    .contentTransition(.numericText())
             }
         }
     }

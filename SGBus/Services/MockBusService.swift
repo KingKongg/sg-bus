@@ -47,10 +47,10 @@ final class MockBusService: BusServiceProtocol {
     // MARK: - Arrival Generation
 
     private func makeArrival(serviceNo: String, destination: String, busType: BusType, crowdLevel: CrowdLevel) -> BusArrival {
-        let hash = abs(serviceNo.hashValue)
-        let offset1 = Double((hash % 5) + 1)
-        let offset2 = offset1 + Double((hash % 7) + 5)
-        let offset3 = offset2 + Double((hash % 10) + 8)
+        let jitter1 = Double.random(in: 0...3)
+        let offset1 = Double(Int.random(in: 1...5)) + jitter1
+        let offset2 = offset1 + Double(Int.random(in: 5...12))
+        let offset3 = offset2 + Double(Int.random(in: 8...18))
 
         return BusArrival(
             serviceNo: serviceNo,
@@ -59,13 +59,12 @@ final class MockBusService: BusServiceProtocol {
             nextBus2: ArrivalTime(estimatedArrival: Date.now.addingTimeInterval(offset2 * 60)),
             nextBus3: ArrivalTime(estimatedArrival: Date.now.addingTimeInterval(offset3 * 60)),
             busType: busType,
-            crowdLevel: crowdLevel
+            crowdLevel: CrowdLevel.allCases.randomElement()!
         )
     }
 
     private func crowdFor(_ serviceNo: String) -> CrowdLevel {
-        let hash = abs(serviceNo.hashValue) % 3
-        return [CrowdLevel.low, .medium, .high][hash]
+        CrowdLevel.allCases.randomElement()!
     }
 
     // MARK: - Protocol

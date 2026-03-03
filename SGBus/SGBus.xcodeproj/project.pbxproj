@@ -21,7 +21,7 @@
 		7126DEEB16578C4F5B62878A /* FavouritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3BD7477E2E8C169176F1DD /* FavouritesManager.swift */; };
 		76EA9E3A8C980D3F85EB2AF2 /* BusArrivalCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725BFA4952F6F1429EF5897C /* BusArrivalCard.swift */; };
 		76EA9E3A8C980D3F85EB2AF3 /* BusArrivalRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725BFA4952F6F1429EF5897D /* BusArrivalRow.swift */; };
-		7A58CF4E87144FE81B214B24 /* SavedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06768C40B39103E2E58426A2 /* SavedView.swift */; };
+		7A58CF4E87144FE81B214B25 /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06768C40B39103E2E58426A3 /* MeView.swift */; };
 		7EC48DE5330AD18BAC5BBF66 /* SGBusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3437E42F922AFFBA3D5FED /* SGBusApp.swift */; };
 		898564C2C17CE2EEE0B8E071 /* ArrivalTimeBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B195D784B4F239BB4492073 /* ArrivalTimeBadge.swift */; };
 		9655B8002C8E2C5E9C6BBA81 /* CrowdIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258A81FF93BD6EA221DAEA1A /* CrowdIndicator.swift */; };
@@ -40,7 +40,7 @@
 /* Begin PBXFileReference section */
 		00162084AA88FA94F2122499 /* BusServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusServiceProtocol.swift; sourceTree = "<group>"; };
 		00959F2C602468CB9848E4DB /* ArrivalTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrivalTime.swift; sourceTree = "<group>"; };
-		06768C40B39103E2E58426A2 /* SavedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedView.swift; sourceTree = "<group>"; };
+		06768C40B39103E2E58426A3 /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		0F3BD7477E2E8C169176F1DD /* FavouritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesManager.swift; sourceTree = "<group>"; };
 		1A5B974E6CE38E301BC28F1D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		2007109B5979CC7AC9C3DF1F /* BusStopDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopDetailViewModel.swift; sourceTree = "<group>"; };
@@ -152,7 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				839F65C3A488DA6ED79D35E6 /* HomeView.swift */,
-				06768C40B39103E2E58426A2 /* SavedView.swift */,
+				06768C40B39103E2E58426A3 /* MeView.swift */,
 				3D4D32DBC10D11075B0521C6 /* SearchView.swift */,
 			);
 			path = Tabs;
@@ -253,7 +253,7 @@
 				E18F72BD2DD1D1E0A5ACB6B0 /* MockBusService.swift in Sources */,
 				A8C8DC44FB13DFF91A1CB433 /* RouteMapView.swift in Sources */,
 				7EC48DE5330AD18BAC5BBF66 /* SGBusApp.swift in Sources */,
-				7A58CF4E87144FE81B214B24 /* SavedView.swift in Sources */,
+				7A58CF4E87144FE81B214B25 /* MeView.swift in Sources */,
 				20C43FDB627F620719A130D4 /* SavedViewModel.swift in Sources */,
 				603B2FD3D362248F89C2B4E3 /* SearchView.swift in Sources */,
 				AFD8F1F721BFDF2226C23ABE /* SearchViewModel.swift in Sources */,

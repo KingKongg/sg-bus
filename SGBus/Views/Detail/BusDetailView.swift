@@ -27,7 +27,7 @@ struct BusDetailView: View {
                     Button {
                         let generator = UIImpactFeedbackGenerator(style: .light)
                         generator.impactOccurred()
-                        withAnimation { favouritesManager.toggleFavourite(serviceNo) }
+                        withAnimation(.easeOut(duration: 0.2)) { favouritesManager.toggleFavourite(serviceNo) }
                     } label: {
                         Image(systemName: favouritesManager.isFavourite(serviceNo) ? "star.fill" : "star")
                             .font(.title)

@@ -67,12 +67,13 @@ struct HomeView: View {
                         arrival: arrival,
                         isFavourite: true,
                         onToggleFavourite: {
-                            withAnimation { favouritesManager.toggleFavourite(arrival.serviceNo) }
+                            withAnimation(.easeOut(duration: 0.2)) { favouritesManager.toggleFavourite(arrival.serviceNo) }
                         }
                     )
                 }
                 .buttonStyle(.plain)
             }
+            .animation(.snappy, value: viewModel.favouriteArrivals)
         }
     }
 }
@@ -83,7 +84,7 @@ struct PulsingModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .opacity(isPulsing ? 0.4 : 1.0)
-            .animation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true), value: isPulsing)
+            .animation(.easeInOut(duration: 1.6).repeatForever(autoreverses: true), value: isPulsing)
             .onAppear { isPulsing = true }
     }
 }
