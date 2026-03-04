@@ -8,44 +8,78 @@
 
 /* Begin PBXBuildFile section */
 		0E67FFDCA75405552FB36D35 /* BusServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00162084AA88FA94F2122499 /* BusServiceProtocol.swift */; };
+		126429DF3E26F88BB9523427 /* CompactViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D84D031509C44DB52A7127 /* CompactViews.swift */; };
 		20C43FDB627F620719A130D4 /* SavedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913A6E9C68D710BC0B0504D4 /* SavedViewModel.swift */; };
 		2B3FBE338E65B30EA12FACE4 /* BusStopDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0EC2B130A177E27BA7053E /* BusStopDetailView.swift */; };
 		2E68FCECEE70EC0755F24AC2 /* BusStopDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2007109B5979CC7AC9C3DF1F /* BusStopDetailViewModel.swift */; };
+		3BD703184EEDD2C49B092087 /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C8743DE3B9C16D745BD329 /* MeView.swift */; };
 		406BDDC02A39DFF959E19162 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF049BA34315F800E01D245 /* ThemeManager.swift */; };
 		495032D1CDCB545C4FA75570 /* BusDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510CC43704283B708A46C257 /* BusDetailViewModel.swift */; };
+		58D6CEE2426DFF6F8201F43A /* SGBusWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A6F4C25E2F0A5F85679E7D99 /* SGBusWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5C96211B81349502495C40CF /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85151B507D406AB7CE3C5694 /* Color+Hex.swift */; };
 		5E54F79F7AB0F81E201C1809 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F8BD3D2A413D54647C0A5A /* EmptyStateView.swift */; };
 		603B2FD3D362248F89C2B4E3 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4D32DBC10D11075B0521C6 /* SearchView.swift */; };
 		685A6C2D5E72288579BF30BF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F65C3A488DA6ED79D35E6 /* HomeView.swift */; };
 		694E4E37676757BDC4FA0321 /* ArrivalTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00959F2C602468CB9848E4DB /* ArrivalTime.swift */; };
 		6B8077EFE1F5E198669095B7 /* BusServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE629311B23EB2D66C97633C /* BusServiceModel.swift */; };
+		6CB08D7C04E500F2F8F95AAB /* BusLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF17AB39E93990EE5EBFC336 /* BusLiveActivityAttributes.swift */; };
+		6E3F1B61F12671B2C9E930B2 /* BusLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF17AB39E93990EE5EBFC336 /* BusLiveActivityAttributes.swift */; };
 		7126DEEB16578C4F5B62878A /* FavouritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3BD7477E2E8C169176F1DD /* FavouritesManager.swift */; };
 		76EA9E3A8C980D3F85EB2AF2 /* BusArrivalCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725BFA4952F6F1429EF5897C /* BusArrivalCard.swift */; };
-		76EA9E3A8C980D3F85EB2AF3 /* BusArrivalRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725BFA4952F6F1429EF5897D /* BusArrivalRow.swift */; };
-		7A58CF4E87144FE81B214B25 /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06768C40B39103E2E58426A3 /* MeView.swift */; };
+		7817AF4097B02202B4E34A78 /* PinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2C9BB2E257CDA47349CA26 /* PinManager.swift */; };
 		7EC48DE5330AD18BAC5BBF66 /* SGBusApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3437E42F922AFFBA3D5FED /* SGBusApp.swift */; };
 		898564C2C17CE2EEE0B8E071 /* ArrivalTimeBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B195D784B4F239BB4492073 /* ArrivalTimeBadge.swift */; };
 		9655B8002C8E2C5E9C6BBA81 /* CrowdIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258A81FF93BD6EA221DAEA1A /* CrowdIndicator.swift */; };
+		9895AE3083AFF48995FFEBC7 /* LockScreenLiveActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120DA723D73B8F3793422CBE /* LockScreenLiveActivityView.swift */; };
+		9E8448C63D22539B622CADDD /* BusLiveActivityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8275532AD1095BCA729FADB9 /* BusLiveActivityWidget.swift */; };
 		A6521339D89B1537C92916F3 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5B974E6CE38E301BC28F1D /* HomeViewModel.swift */; };
 		A8C8DC44FB13DFF91A1CB433 /* RouteMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C0BFE98E75A0EDE59D9FC3 /* RouteMapView.swift */; };
 		ABD583652B87789303A1EB07 /* BusTypeBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46958141921BC0623FA264B /* BusTypeBadge.swift */; };
 		AFD8F1F721BFDF2226C23ABE /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B740651CDF9786B305034 /* SearchViewModel.swift */; };
 		B1B52D15AE67BF5C372E8F51 /* BusType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799EBFC334B5773E9D62D69C /* BusType.swift */; };
+		B298F916BC0D160CE41BAB19 /* ExpandedViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7A7190EE10A46A8EE0FDCF /* ExpandedViews.swift */; };
 		B5437578354E228A87A6E723 /* BusArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3595E3C72D8CF67E282754 /* BusArrival.swift */; };
 		E18F72BD2DD1D1E0A5ACB6B0 /* MockBusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C3B62E25E83756E5748DB /* MockBusService.swift */; };
 		E77E0690ECC57C7B4FDF666F /* BusStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE8CAFADC030A176FC863C3 /* BusStop.swift */; };
 		E82AE532987EBA362B3D5CCA /* CrowdLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8493112C6CB34A6861898028 /* CrowdLevel.swift */; };
+		EA3E714B56853AA4F50B8503 /* BusArrivalRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885D75E2627327621B7738AE /* BusArrivalRow.swift */; };
 		F936047E10BFE30887C73D2D /* BusDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4E35F831D5A7E048624FB5 /* BusDetailView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3D33928DA5B8797D608D492F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4B6366A03EA2ADFCEAA6D84 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D9E4C1898ED754FED76AE3E3;
+			remoteInfo = SGBusWidgets;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9B75AE778B98C24D5612BEC1 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				58D6CEE2426DFF6F8201F43A /* SGBusWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00162084AA88FA94F2122499 /* BusServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusServiceProtocol.swift; sourceTree = "<group>"; };
 		00959F2C602468CB9848E4DB /* ArrivalTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrivalTime.swift; sourceTree = "<group>"; };
-		06768C40B39103E2E58426A3 /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		0F3BD7477E2E8C169176F1DD /* FavouritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesManager.swift; sourceTree = "<group>"; };
+		120DA723D73B8F3793422CBE /* LockScreenLiveActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenLiveActivityView.swift; sourceTree = "<group>"; };
 		1A5B974E6CE38E301BC28F1D /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		2007109B5979CC7AC9C3DF1F /* BusStopDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopDetailViewModel.swift; sourceTree = "<group>"; };
 		258A81FF93BD6EA221DAEA1A /* CrowdIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdIndicator.swift; sourceTree = "<group>"; };
 		2C3595E3C72D8CF67E282754 /* BusArrival.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusArrival.swift; sourceTree = "<group>"; };
+		35F02BE3C0C92A3167F243D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3D0EC2B130A177E27BA7053E /* BusStopDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStopDetailView.swift; sourceTree = "<group>"; };
 		3D4D32DBC10D11075B0521C6 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		510CC43704283B708A46C257 /* BusDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusDetailViewModel.swift; sourceTree = "<group>"; };
@@ -54,19 +88,27 @@
 		5B3437E42F922AFFBA3D5FED /* SGBusApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SGBusApp.swift; sourceTree = "<group>"; };
 		6EE8CAFADC030A176FC863C3 /* BusStop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStop.swift; sourceTree = "<group>"; };
 		725BFA4952F6F1429EF5897C /* BusArrivalCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusArrivalCard.swift; sourceTree = "<group>"; };
-		725BFA4952F6F1429EF5897D /* BusArrivalRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusArrivalRow.swift; sourceTree = "<group>"; };
 		799EBFC334B5773E9D62D69C /* BusType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusType.swift; sourceTree = "<group>"; };
 		7C2B740651CDF9786B305034 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		7E2C9BB2E257CDA47349CA26 /* PinManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinManager.swift; sourceTree = "<group>"; };
+		8275532AD1095BCA729FADB9 /* BusLiveActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLiveActivityWidget.swift; sourceTree = "<group>"; };
 		839F65C3A488DA6ED79D35E6 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		8493112C6CB34A6861898028 /* CrowdLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdLevel.swift; sourceTree = "<group>"; };
+		85151B507D406AB7CE3C5694 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		885D75E2627327621B7738AE /* BusArrivalRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusArrivalRow.swift; sourceTree = "<group>"; };
 		913A6E9C68D710BC0B0504D4 /* SavedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewModel.swift; sourceTree = "<group>"; };
 		9B195D784B4F239BB4492073 /* ArrivalTimeBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrivalTimeBadge.swift; sourceTree = "<group>"; };
 		A46958141921BC0623FA264B /* BusTypeBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusTypeBadge.swift; sourceTree = "<group>"; };
+		A6F4C25E2F0A5F85679E7D99 /* SGBusWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = SGBusWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA4E35F831D5A7E048624FB5 /* BusDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusDetailView.swift; sourceTree = "<group>"; };
 		AC2C3B62E25E83756E5748DB /* MockBusService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockBusService.swift; sourceTree = "<group>"; };
 		CE629311B23EB2D66C97633C /* BusServiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusServiceModel.swift; sourceTree = "<group>"; };
+		CF17AB39E93990EE5EBFC336 /* BusLiveActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLiveActivityAttributes.swift; sourceTree = "<group>"; };
 		DCF049BA34315F800E01D245 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		E3C8743DE3B9C16D745BD329 /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
+		ED7A7190EE10A46A8EE0FDCF /* ExpandedViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedViews.swift; sourceTree = "<group>"; };
 		F3C0BFE98E75A0EDE59D9FC3 /* RouteMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMapView.swift; sourceTree = "<group>"; };
+		F4D84D031509C44DB52A7127 /* CompactViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactViews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -74,6 +116,8 @@
 			isa = PBXGroup;
 			children = (
 				5B3437E42F922AFFBA3D5FED /* SGBusApp.swift */,
+				B1AF5DFFBCEB8993D2661C2B /* bus-app-brutal */,
+				549040E0DC19E6DE25A97CF3 /* LiveActivity */,
 				729C7AA3503F723B1DD3C41D /* Models */,
 				2214B98DFFCDA8F0794A91C8 /* Services */,
 				A27A85BB37EFD79173D94E02 /* Theme */,
@@ -101,14 +145,24 @@
 				00162084AA88FA94F2122499 /* BusServiceProtocol.swift */,
 				0F3BD7477E2E8C169176F1DD /* FavouritesManager.swift */,
 				AC2C3B62E25E83756E5748DB /* MockBusService.swift */,
+				7E2C9BB2E257CDA47349CA26 /* PinManager.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		549040E0DC19E6DE25A97CF3 /* LiveActivity */ = {
+			isa = PBXGroup;
+			children = (
+				CF17AB39E93990EE5EBFC336 /* BusLiveActivityAttributes.swift */,
+			);
+			path = LiveActivity;
 			sourceTree = "<group>";
 		};
 		7063033DB9825871E7A850A0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				593620956BCE540D9C45FA0E /* SGBus.app */,
+				A6F4C25E2F0A5F85679E7D99 /* SGBusWidgets.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -131,7 +185,7 @@
 			children = (
 				9B195D784B4F239BB4492073 /* ArrivalTimeBadge.swift */,
 				725BFA4952F6F1429EF5897C /* BusArrivalCard.swift */,
-				725BFA4952F6F1429EF5897D /* BusArrivalRow.swift */,
+				885D75E2627327621B7738AE /* BusArrivalRow.swift */,
 				A46958141921BC0623FA264B /* BusTypeBadge.swift */,
 				258A81FF93BD6EA221DAEA1A /* CrowdIndicator.swift */,
 				52F8BD3D2A413D54647C0A5A /* EmptyStateView.swift */,
@@ -152,10 +206,19 @@
 			isa = PBXGroup;
 			children = (
 				839F65C3A488DA6ED79D35E6 /* HomeView.swift */,
-				06768C40B39103E2E58426A3 /* MeView.swift */,
+				E3C8743DE3B9C16D745BD329 /* MeView.swift */,
 				3D4D32DBC10D11075B0521C6 /* SearchView.swift */,
 			);
 			path = Tabs;
+			sourceTree = "<group>";
+		};
+		B1AF5DFFBCEB8993D2661C2B /* bus-app-brutal */ = {
+			isa = PBXGroup;
+			children = (
+				D8D721DC1B4005E600EB548E /* SGBusWidgets */,
+			);
+			name = "bus-app-brutal";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		B82AE93B82936C6E84A68506 /* Views */ = {
@@ -168,6 +231,24 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		C5E7A0649DF7BE698D22B311 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F4D84D031509C44DB52A7127 /* CompactViews.swift */,
+				ED7A7190EE10A46A8EE0FDCF /* ExpandedViews.swift */,
+				120DA723D73B8F3793422CBE /* LockScreenLiveActivityView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D5340101FC2701768624A6DB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				85151B507D406AB7CE3C5694 /* Color+Hex.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		D7007D4AECF3A6A261014D46 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +256,17 @@
 				3D0EC2B130A177E27BA7053E /* BusStopDetailView.swift */,
 			);
 			path = Detail;
+			sourceTree = "<group>";
+		};
+		D8D721DC1B4005E600EB548E /* SGBusWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				8275532AD1095BCA729FADB9 /* BusLiveActivityWidget.swift */,
+				35F02BE3C0C92A3167F243D2 /* Info.plist */,
+				D5340101FC2701768624A6DB /* Extensions */,
+				C5E7A0649DF7BE698D22B311 /* Views */,
+			);
+			path = SGBusWidgets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,10 +277,12 @@
 			buildConfigurationList = E0771401716D5F87BF709386 /* Build configuration list for PBXNativeTarget "SGBus" */;
 			buildPhases = (
 				6771ED99C69F861453DFE949 /* Sources */,
+				9B75AE778B98C24D5612BEC1 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				13E5EE2EC4C62F1794F9C530 /* PBXTargetDependency */,
 			);
 			name = SGBus;
 			packageProductDependencies = (
@@ -196,6 +290,23 @@
 			productName = SGBus;
 			productReference = 593620956BCE540D9C45FA0E /* SGBus.app */;
 			productType = "com.apple.product-type.application";
+		};
+		D9E4C1898ED754FED76AE3E3 /* SGBusWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 73ADA064E4398CFEE0494CBD /* Build configuration list for PBXNativeTarget "SGBusWidgets" */;
+			buildPhases = (
+				B4DFFD0C41C8588A0B99B46E /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SGBusWidgets;
+			packageProductDependencies = (
+			);
+			productName = SGBusWidgets;
+			productReference = A6F4C25E2F0A5F85679E7D99 /* SGBusWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -221,6 +332,7 @@
 			projectRoot = "";
 			targets = (
 				AB902476CD718BCAE643551F /* SGBus */,
+				D9E4C1898ED754FED76AE3E3 /* SGBusWidgets */,
 			);
 		};
 /* End PBXProject section */
@@ -234,9 +346,10 @@
 				898564C2C17CE2EEE0B8E071 /* ArrivalTimeBadge.swift in Sources */,
 				B5437578354E228A87A6E723 /* BusArrival.swift in Sources */,
 				76EA9E3A8C980D3F85EB2AF2 /* BusArrivalCard.swift in Sources */,
-				76EA9E3A8C980D3F85EB2AF3 /* BusArrivalRow.swift in Sources */,
+				EA3E714B56853AA4F50B8503 /* BusArrivalRow.swift in Sources */,
 				F936047E10BFE30887C73D2D /* BusDetailView.swift in Sources */,
 				495032D1CDCB545C4FA75570 /* BusDetailViewModel.swift in Sources */,
+				6E3F1B61F12671B2C9E930B2 /* BusLiveActivityAttributes.swift in Sources */,
 				6B8077EFE1F5E198669095B7 /* BusServiceModel.swift in Sources */,
 				0E67FFDCA75405552FB36D35 /* BusServiceProtocol.swift in Sources */,
 				E77E0690ECC57C7B4FDF666F /* BusStop.swift in Sources */,
@@ -250,10 +363,11 @@
 				7126DEEB16578C4F5B62878A /* FavouritesManager.swift in Sources */,
 				685A6C2D5E72288579BF30BF /* HomeView.swift in Sources */,
 				A6521339D89B1537C92916F3 /* HomeViewModel.swift in Sources */,
+				3BD703184EEDD2C49B092087 /* MeView.swift in Sources */,
 				E18F72BD2DD1D1E0A5ACB6B0 /* MockBusService.swift in Sources */,
+				7817AF4097B02202B4E34A78 /* PinManager.swift in Sources */,
 				A8C8DC44FB13DFF91A1CB433 /* RouteMapView.swift in Sources */,
 				7EC48DE5330AD18BAC5BBF66 /* SGBusApp.swift in Sources */,
-				7A58CF4E87144FE81B214B25 /* MeView.swift in Sources */,
 				20C43FDB627F620719A130D4 /* SavedViewModel.swift in Sources */,
 				603B2FD3D362248F89C2B4E3 /* SearchView.swift in Sources */,
 				AFD8F1F721BFDF2226C23ABE /* SearchViewModel.swift in Sources */,
@@ -261,7 +375,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B4DFFD0C41C8588A0B99B46E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CB08D7C04E500F2F8F95AAB /* BusLiveActivityAttributes.swift in Sources */,
+				9E8448C63D22539B622CADDD /* BusLiveActivityWidget.swift in Sources */,
+				5C96211B81349502495C40CF /* Color+Hex.swift in Sources */,
+				126429DF3E26F88BB9523427 /* CompactViews.swift in Sources */,
+				B298F916BC0D160CE41BAB19 /* ExpandedViews.swift in Sources */,
+				9895AE3083AFF48995FFEBC7 /* LockScreenLiveActivityView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		13E5EE2EC4C62F1794F9C530 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D9E4C1898ED754FED76AE3E3 /* SGBusWidgets */;
+			targetProxy = 3D33928DA5B8797D608D492F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		015AA3B0D1AC0D837E710CD2 /* Release */ = {
@@ -327,6 +462,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "SG Bus";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -347,6 +483,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "SG Bus";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -359,6 +496,22 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
+		};
+		6737AFD48E96C1DF4C73D54A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = ../SGBusWidgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sgbus.SGBus.SGBusWidgets;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
 		};
 		7B617E6DB5ABD6AF9D6300F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -423,9 +576,34 @@
 			};
 			name = Debug;
 		};
+		E586C089F6033ECE80A691F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = ../SGBusWidgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sgbus.SGBus.SGBusWidgets;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		73ADA064E4398CFEE0494CBD /* Build configuration list for PBXNativeTarget "SGBusWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6737AFD48E96C1DF4C73D54A /* Debug */,
+				E586C089F6033ECE80A691F7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		96B4117E1460C2E46D33BDD3 /* Build configuration list for PBXProject "SGBus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

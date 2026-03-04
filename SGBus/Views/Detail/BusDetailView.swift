@@ -5,6 +5,7 @@ struct BusDetailView: View {
 
     @EnvironmentObject private var theme: ThemeManager
     @EnvironmentObject private var favouritesManager: FavouritesManager
+    @EnvironmentObject private var pinManager: PinManager
     @Environment(\.busService) private var busService
     @StateObject private var viewModel: BusDetailViewModel
 
@@ -24,17 +25,41 @@ struct BusDetailView: View {
 
                     Spacer()
 
-                    Button {
-                        let generator = UIImpactFeedbackGenerator(style: .light)
-                        generator.impactOccurred()
-                        withAnimation(.easeOut(duration: 0.2)) { favouritesManager.toggleFavourite(serviceNo) }
-                    } label: {
-                        Image(systemName: favouritesManager.isFavourite(serviceNo) ? "star.fill" : "star")
-                            .font(.title)
-                            .foregroundColor(favouritesManager.isFavourite(serviceNo) ? theme.star : theme.textMuted)
-                            .frame(width: 44, height: 44)
+                    VStack(spacing: 4) {
+                        Button {
+                            let generator = UIImpactFeedbackGenerator(style: .light)
+                            generator.impactOccurred()
+                            withAnimation(.easeOut(duration: 0.2)) { favouritesManager.toggleFavourite(serviceNo) }
+                        } label: {
+                            Image(systemName: favouritesManager.isFavourite(serviceNo) ? "star.fill" : "star")
+                                .font(.title)
+                                .foregroundColor(favouritesManager.isFavourite(serviceNo) ? theme.star : theme.textMuted)
+                                .frame(width: 44, height: 44)
+                        }
+                        .accessibilityLabel(favouritesManager.isFavourite(serviceNo) ? "Remove from favourites" : "Add to favourites")
+
+                        Button {
+                            if pinManager.isPinned(serviceNo) {
+                                pinManager.unpin()
+                            } else if let detail = viewModel.serviceDetail, let arrival = viewModel.arrival {
+                                pinManager.pin(
+                                    serviceNo: serviceNo,
+                                    destination: detail.destination,
+                                    stopName: detail.routeStops.first?.name ?? detail.origin,
+                                    stopCode: detail.routeStops.first?.id ?? "",
+                                    busService: busService,
+                                    initialArrival: arrival
+                                )
+                            }
+                        } label: {
+                            Image(systemName: pinManager.isPinned(serviceNo) ? "pin.fill" : "pin")
+                                .font(.title3)
+                                .foregroundColor(pinManager.isPinned(serviceNo) ? theme.accent : theme.textMuted)
+                                .frame(width: 44, height: 44)
+                        }
+                        .disabled(viewModel.arrival == nil)
+                        .accessibilityLabel(pinManager.isPinned(serviceNo) ? "Unpin from Dynamic Island" : "Pin to Dynamic Island")
                     }
-                    .accessibilityLabel(favouritesManager.isFavourite(serviceNo) ? "Remove from favourites" : "Add to favourites")
                 }
 
                 // Route text

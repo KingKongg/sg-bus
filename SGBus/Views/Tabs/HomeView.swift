@@ -3,6 +3,7 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject private var theme: ThemeManager
     @EnvironmentObject private var favouritesManager: FavouritesManager
+    @EnvironmentObject private var pinManager: PinManager
     @Environment(\.busService) private var busService
     @StateObject private var viewModel = HomeViewModel()
     @Binding var selectedTab: Int
@@ -66,6 +67,7 @@ struct HomeView: View {
                     BusArrivalCard(
                         arrival: arrival,
                         isFavourite: true,
+                        isPinned: pinManager.isPinned(arrival.serviceNo),
                         onToggleFavourite: {
                             withAnimation(.easeOut(duration: 0.2)) { favouritesManager.toggleFavourite(arrival.serviceNo) }
                         }

@@ -16,6 +16,7 @@ targets:
       - path: ViewModels
       - path: Views
       - path: SGBusApp.swift
+      - path: LiveActivity
     settings:
       base:
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
@@ -23,3 +24,17 @@ targets:
         INFOPLIST_KEY_CFBundleDisplayName: "SG Bus"
         SWIFT_VERSION: "5.9"
         GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_NSSupportsLiveActivities: YES
+    dependencies:
+      - target: SGBusWidgets
+  SGBusWidgets:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: ../SGBusWidgets
+      - path: LiveActivity/BusLiveActivityAttributes.swift
+    settings:
+      base:
+        SWIFT_VERSION: "5.9"
+        INFOPLIST_FILE: ../SGBusWidgets/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.sgbus.SGBus.SGBusWidgets

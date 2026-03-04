@@ -3,6 +3,7 @@ import SwiftUI
 struct BusArrivalCard: View {
     let arrival: BusArrival
     let isFavourite: Bool
+    var isPinned: Bool = false
     let onToggleFavourite: () -> Void
 
     @EnvironmentObject private var theme: ThemeManager
@@ -71,8 +72,10 @@ struct BusArrivalCard: View {
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(theme.border, lineWidth: 1)
+                .stroke(isPinned ? theme.accent : theme.border, lineWidth: isPinned ? 2 : 1)
         )
+        .shadow(color: isPinned ? theme.accent.opacity(0.25) : .clear, radius: 8, y: 2)
+        .animation(.snappy(duration: 0.3), value: isPinned)
     }
 
     private var primaryArrivalText: String {

@@ -1,9 +1,11 @@
+import ActivityKit
 import SwiftUI
 
 @main
 struct SGBusApp: App {
     @StateObject private var theme = ThemeManager()
     @StateObject private var favouritesManager = FavouritesManager()
+    @StateObject private var pinManager = PinManager()
     @State private var selectedTab = 0
 
     var body: some Scene {
@@ -29,10 +31,14 @@ struct SGBusApp: App {
             }
             .environmentObject(theme)
             .environmentObject(favouritesManager)
+            .environmentObject(pinManager)
             .environment(\.busService, MockBusService())
             .preferredColorScheme(theme.colorScheme)
             .tint(theme.accent)
             .font(.system(.body, design: .monospaced))
+            .task {
+                pinManager.cleanupOrphanedActivities()
+            }
         }
     }
 }
