@@ -1,4 +1,5 @@
 import ActivityKit
+import BackgroundTasks
 import Foundation
 import SwiftUI
 
@@ -12,6 +13,8 @@ final class PinManager: ObservableObject {
 
     private var busService: (any BusServiceProtocol)?
     private var stopCode: String?
+
+    static let bgTaskIdentifier = "com.sgbus.refreshLiveActivity"
 
     func isPinned(_ serviceNo: String) -> Bool {
         pinnedServiceNo == serviceNo
@@ -34,16 +37,10 @@ final class PinManager: ObservableObject {
             stopName: stopName
         )
 
-        let minutes = initialArrival?.nextBus.minutesAway
-        let min2 = initialArrival?.nextBus2.minutesAway
-        let min3 = initialArrival?.nextBus3.minutesAway
-        let arrivalDate = initialArrival?.nextBus.estimatedArrival
-
         let state = BusLiveActivityAttributes.ContentState(
-            nextBusMinutes: minutes,
-            nextBus2Minutes: min2,
-            nextBus3Minutes: min3,
-            nextBusArrivalDate: arrivalDate
+            nextBusArrival: initialArrival?.nextBus.estimatedArrival,
+            nextBus2Arrival: initialArrival?.nextBus2.estimatedArrival,
+            nextBus3Arrival: initialArrival?.nextBus3.estimatedArrival
         )
 
         let content = ActivityContent(state: state, staleDate: Date().addingTimeInterval(90))
@@ -56,7 +53,7 @@ final class PinManager: ObservableObject {
             )
             startUpdateTimer()
         } catch {
-            print("Failed to start Live Activity: \(error)")
+            print("[PinManager] Failed to start Live Activity: \(error)")
             pinnedServiceNo = nil
             pinnedStopCode = nil
         }
@@ -71,10 +68,9 @@ final class PinManager: ObservableObject {
 
         if let activity = currentActivity {
             let finalState = BusLiveActivityAttributes.ContentState(
-                nextBusMinutes: nil,
-                nextBus2Minutes: nil,
-                nextBus3Minutes: nil,
-                nextBusArrivalDate: nil
+                nextBusArrival: nil,
+                nextBus2Arrival: nil,
+                nextBus3Arrival: nil
             )
             Task {
                 await activity.end(
@@ -98,10 +94,9 @@ final class PinManager: ObservableObject {
         Task {
             for activity in Activity<BusLiveActivityAttributes>.activities {
                 let state = BusLiveActivityAttributes.ContentState(
-                    nextBusMinutes: nil,
-                    nextBus2Minutes: nil,
-                    nextBus3Minutes: nil,
-                    nextBusArrivalDate: nil
+                    nextBusArrival: nil,
+                    nextBus2Arrival: nil,
+                    nextBus3Arrival: nil
                 )
                 await activity.end(
                     ActivityContent(state: state, staleDate: nil),
@@ -121,37 +116,91 @@ final class PinManager: ObservableObject {
         }
     }
 
-    private func refreshActivity() async {
+    func refreshActivity() async {
         guard let activity = currentActivity,
               let busService,
               let stopCode else { return }
 
-        let arrivals = await busService.getArrivals(forStop: stopCode)
-        guard let arrival = arrivals.first(where: { $0.serviceNo == pinnedServiceNo }) else { return }
+        do {
+            let arrivals = try await busService.getArrivals(forStop: stopCode)
+            guard let arrival = arrivals.first(where: { $0.serviceNo == pinnedServiceNo }) else {
+                print("[PinManager] No arrival found for service \(pinnedServiceNo ?? "nil")")
+                return
+            }
 
-        let minutes = arrival.nextBus.minutesAway
-        let state = BusLiveActivityAttributes.ContentState(
-            nextBusMinutes: minutes,
-            nextBus2Minutes: arrival.nextBus2.minutesAway,
-            nextBus3Minutes: arrival.nextBus3.minutesAway,
-            nextBusArrivalDate: arrival.nextBus.estimatedArrival
-        )
-
-        let content = ActivityContent(state: state, staleDate: Date().addingTimeInterval(90))
-        await activity.update(content)
-
-        // Auto-end 30s after bus arrives
-        if let min = minutes, min <= 0 {
-            try? await Task.sleep(for: .seconds(30))
-            await activity.end(
-                ActivityContent(state: state, staleDate: nil),
-                dismissalPolicy: .default
+            let state = BusLiveActivityAttributes.ContentState(
+                nextBusArrival: arrival.nextBus.estimatedArrival,
+                nextBus2Arrival: arrival.nextBus2.estimatedArrival,
+                nextBus3Arrival: arrival.nextBus3.estimatedArrival
             )
-            self.currentActivity = nil
-            self.pinnedServiceNo = nil
-            self.pinnedStopCode = nil
-            self.updateTimer?.invalidate()
-            self.updateTimer = nil
+
+            let content = ActivityContent(state: state, staleDate: Date().addingTimeInterval(90))
+            await activity.update(content)
+
+            // Auto-end when service stops operating (e.g., late at night)
+            if !arrival.isOperating {
+                try? await Task.sleep(for: .seconds(5))
+                await activity.end(
+                    ActivityContent(state: state, staleDate: nil),
+                    dismissalPolicy: .default
+                )
+                self.currentActivity = nil
+                self.pinnedServiceNo = nil
+                self.pinnedStopCode = nil
+                self.updateTimer?.invalidate()
+                self.updateTimer = nil
+                return
+            }
+
+            // Auto-end 30s after bus arrives
+            if let minutes = arrival.nextBus.minutesAway, minutes <= 0 {
+                try? await Task.sleep(for: .seconds(30))
+                await activity.end(
+                    ActivityContent(state: state, staleDate: nil),
+                    dismissalPolicy: .default
+                )
+                self.currentActivity = nil
+                self.pinnedServiceNo = nil
+                self.pinnedStopCode = nil
+                self.updateTimer?.invalidate()
+                self.updateTimer = nil
+            }
+        } catch {
+            print("[PinManager] Failed to refresh Live Activity: \(error)")
         }
+    }
+
+    // MARK: - Background Task
+
+    func registerBackgroundTask() {
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: Self.bgTaskIdentifier, using: nil) { [weak self] task in
+            guard let task = task as? BGAppRefreshTask else { return }
+            Task { @MainActor in
+                await self?.handleBackgroundRefresh(task: task)
+            }
+        }
+    }
+
+    func scheduleBackgroundRefresh() {
+        guard pinnedServiceNo != nil else { return }
+        let request = BGAppRefreshTaskRequest(identifier: Self.bgTaskIdentifier)
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 30)
+        do {
+            try BGTaskScheduler.shared.submit(request)
+        } catch {
+            print("[PinManager] Failed to schedule background refresh: \(error)")
+        }
+    }
+
+    private func handleBackgroundRefresh(task: BGAppRefreshTask) async {
+        // Schedule the next refresh before doing work
+        scheduleBackgroundRefresh()
+
+        task.expirationHandler = {
+            task.setTaskCompleted(success: false)
+        }
+
+        await refreshActivity()
+        task.setTaskCompleted(success: true)
     }
 }

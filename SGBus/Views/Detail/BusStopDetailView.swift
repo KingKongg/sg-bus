@@ -7,6 +7,11 @@ struct BusStopDetailView: View {
     @EnvironmentObject private var favouritesManager: FavouritesManager
     @Environment(\.busService) private var busService
     @StateObject private var viewModel: BusStopDetailViewModel
+    private let refreshTimer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
+
+    private var allServicesEnded: Bool {
+        !viewModel.arrivals.isEmpty && viewModel.arrivals.allSatisfy { !$0.isOperating }
+    }
 
     init(stop: BusStop) {
         self.stop = stop
@@ -17,26 +22,55 @@ struct BusStopDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
                 // Header
-                VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 8) {
                     Text(stop.id)
                         .font(.system(.caption, design: .monospaced))
                         .foregroundColor(theme.textMuted)
-                    Text(stop.name)
-                        .font(.system(.title2, design: .monospaced))
-                        .fontWeight(.bold)
-                        .foregroundColor(theme.textPrimary)
                     Text(stop.road)
-                        .font(.system(.subheadline, design: .monospaced))
+                        .font(.system(.caption, design: .monospaced))
                         .foregroundColor(theme.textSecondary)
                 }
                 .padding(.horizontal, 16)
 
+                // Error
+                if let error = viewModel.error {
+                    HStack {
+                        Image(systemName: "exclamationmark.triangle")
+                        Text(error)
+                        Spacer()
+                        Button("Retry") {
+                            Task { await viewModel.loadArrivals(service: busService) }
+                        }
+                    }
+                    .font(.system(.caption, design: .monospaced))
+                    .foregroundColor(.red)
+                    .padding(12)
+                    .background(Color.red.opacity(0.1))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .padding(.horizontal, 16)
+                }
+
+                // No buses message
+                if !viewModel.isLoading && viewModel.arrivals.isEmpty && viewModel.error == nil {
+                    Text("No buses operating at this time")
+                        .font(.system(.subheadline, design: .monospaced))
+                        .foregroundColor(theme.textMuted)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 24)
+                }
+
                 // Services header
                 HStack(spacing: 6) {
-                    Circle()
-                        .fill(Color.green)
-                        .frame(width: 8, height: 8)
-                        .modifier(PulsingModifier())
+                    if allServicesEnded {
+                        Circle()
+                            .fill(Color.red)
+                            .frame(width: 8, height: 8)
+                    } else {
+                        Circle()
+                            .fill(Color.green)
+                            .frame(width: 8, height: 8)
+                            .modifier(PulsingModifier())
+                    }
                     Text("All services")
                         .font(.system(.headline, design: .monospaced))
                         .foregroundColor(theme.textPrimary)
@@ -53,7 +87,7 @@ struct BusStopDetailView: View {
                                 arrival: arrival,
                                 isFavourite: favouritesManager.isFavourite(arrival.serviceNo),
                                 onToggleFavourite: {
-                                    withAnimation(.easeOut(duration: 0.2)) { favouritesManager.toggleFavourite(arrival.serviceNo) }
+                                    withAnimation(.easeOut(duration: 0.2)) { favouritesManager.toggleFavourite(arrival.serviceNo, stopCode: stop.id) }
                                 }
                             )
                         }
@@ -76,6 +110,9 @@ struct BusStopDetailView: View {
         }
         .task {
             await viewModel.loadArrivals(service: busService)
+        }
+        .onReceive(refreshTimer) { _ in
+            Task { await viewModel.loadArrivals(service: busService) }
         }
     }
 }

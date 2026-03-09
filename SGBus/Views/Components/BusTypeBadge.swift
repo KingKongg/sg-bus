@@ -8,6 +8,8 @@ struct BusTypeBadge: View {
             .font(.system(.caption2, design: .monospaced))
             .fontWeight(.bold)
             .foregroundColor(.white)
+            .lineLimit(1)
+            .fixedSize()
             .padding(.horizontal, 6)
             .padding(.vertical, 2)
             .background(busType.color)

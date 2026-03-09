@@ -19,19 +19,36 @@ struct RecentSearch: Codable, Identifiable, Equatable {
     }
 }
 
+struct FavouriteBus: Codable, Equatable, Identifiable {
+    var id: String { "\(serviceNo)_\(stopCode)" }
+    let serviceNo: String
+    let stopCode: String
+}
+
 final class FavouritesManager: ObservableObject {
-    @Published var favouriteBuses: [String] {
+    @Published var favouriteBuses: [FavouriteBus] {
         didSet { saveFavourites() }
     }
     @Published var recentSearches: [RecentSearch] {
         didSet { saveRecents() }
     }
 
-    private let favouritesKey = "sg_bus_favourites"
+    private let favouritesKey = "sg_bus_favourites_v2"
+    private let legacyFavouritesKey = "sg_bus_favourites"
     private let recentsKey = "sg_bus_recents"
 
     init() {
-        self.favouriteBuses = UserDefaults.standard.stringArray(forKey: "sg_bus_favourites") ?? []
+        // Try loading v2 format
+        if let data = UserDefaults.standard.data(forKey: "sg_bus_favourites_v2"),
+           let decoded = try? JSONDecoder().decode([FavouriteBus].self, from: data) {
+            self.favouriteBuses = decoded
+        } else if let legacy = UserDefaults.standard.stringArray(forKey: "sg_bus_favourites"), !legacy.isEmpty {
+            // Migrate: old format was just service numbers, use empty stopCode
+            self.favouriteBuses = legacy.map { FavouriteBus(serviceNo: $0, stopCode: "") }
+        } else {
+            self.favouriteBuses = []
+        }
+
         if let data = UserDefaults.standard.data(forKey: "sg_bus_recents"),
            let decoded = try? JSONDecoder().decode([RecentSearch].self, from: data) {
             self.recentSearches = decoded
@@ -41,14 +58,18 @@ final class FavouritesManager: ObservableObject {
     }
 
     func isFavourite(_ serviceNo: String) -> Bool {
-        favouriteBuses.contains(serviceNo)
+        favouriteBuses.contains { $0.serviceNo == serviceNo }
     }
 
-    func toggleFavourite(_ serviceNo: String) {
-        if let index = favouriteBuses.firstIndex(of: serviceNo) {
+    func isFavourite(serviceNo: String, stopCode: String) -> Bool {
+        favouriteBuses.contains { $0.serviceNo == serviceNo && $0.stopCode == stopCode }
+    }
+
+    func toggleFavourite(_ serviceNo: String, stopCode: String = "") {
+        if let index = favouriteBuses.firstIndex(where: { $0.serviceNo == serviceNo && $0.stopCode == stopCode }) {
             favouriteBuses.remove(at: index)
         } else {
-            favouriteBuses.append(serviceNo)
+            favouriteBuses.append(FavouriteBus(serviceNo: serviceNo, stopCode: stopCode))
         }
     }
 
@@ -65,7 +86,9 @@ final class FavouritesManager: ObservableObject {
     }
 
     private func saveFavourites() {
-        UserDefaults.standard.set(favouriteBuses, forKey: favouritesKey)
+        if let data = try? JSONEncoder().encode(favouriteBuses) {
+            UserDefaults.standard.set(data, forKey: favouritesKey)
+        }
     }
 
     private func saveRecents() {

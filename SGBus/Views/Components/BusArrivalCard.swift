@@ -20,14 +20,16 @@ struct BusArrivalCard: View {
 
                 VStack(alignment: .trailing, spacing: 2) {
                     Text(primaryArrivalText)
-                        .font(.system(size: 28, weight: .bold, design: .monospaced))
+                        .font(.system(size: arrival.isOperating ? 28 : 14, weight: .bold, design: .monospaced))
                         .contentTransition(.numericText())
                         .foregroundColor(primaryArrivalColor)
                         .animation(.snappy(duration: 0.3), value: primaryArrivalText)
 
-                    Text("to arrival")
-                        .font(.system(.caption, design: .monospaced))
-                        .foregroundColor(theme.textSecondary)
+                    if arrival.isOperating && (arrival.nextBus.minutesAway ?? -1) > 0 {
+                        Text("to arrival")
+                            .font(.system(.caption, design: .monospaced))
+                            .foregroundColor(theme.textSecondary)
+                    }
                 }
             }
 
@@ -40,7 +42,14 @@ struct BusArrivalCard: View {
             // Bus type badge + crowd indicator
             HStack(spacing: 8) {
                 BusTypeBadge(busType: arrival.busType)
+                BusOperatorBadge(busOperator: arrival.busOperator)
                 CrowdIndicator(crowdLevel: arrival.crowdLevel)
+                if arrival.isWheelchairAccessible {
+                    Image(systemName: "figure.roll")
+                        .font(.system(.caption2, design: .monospaced))
+                        .foregroundColor(theme.accent)
+                        .accessibilityLabel("Wheelchair accessible")
+                }
             }
 
             Divider()
@@ -48,7 +57,7 @@ struct BusArrivalCard: View {
 
             // Next arrivals + star
             HStack {
-                if arrival.nextBus2.minutesAway != nil || arrival.nextBus3.minutesAway != nil {
+                if arrival.isOperating && (arrival.nextBus2.minutesAway != nil || arrival.nextBus3.minutesAway != nil) {
                     nextArrivalsView
                 }
 
@@ -61,7 +70,7 @@ struct BusArrivalCard: View {
                 } label: {
                     Image(systemName: isFavourite ? "star.fill" : "star")
                         .foregroundColor(isFavourite ? theme.star : theme.textMuted)
-                        .font(.body)
+                        .font(.system(.body, design: .monospaced))
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel(isFavourite ? "Remove from favourites" : "Add to favourites")
@@ -75,16 +84,19 @@ struct BusArrivalCard: View {
                 .stroke(isPinned ? theme.accent : theme.border, lineWidth: isPinned ? 2 : 1)
         )
         .shadow(color: isPinned ? theme.accent.opacity(0.25) : .clear, radius: 8, y: 2)
+        .opacity(arrival.isOperating ? 1.0 : 0.5)
         .animation(.snappy(duration: 0.3), value: isPinned)
     }
 
     private var primaryArrivalText: String {
+        if !arrival.isOperating { return "Not in service" }
         guard let minutes = arrival.nextBus.minutesAway else { return "-" }
         if minutes <= 0 { return "Arr" }
         return "\(minutes) min"
     }
 
     private var primaryArrivalColor: Color {
+        if !arrival.isOperating { return theme.textMuted }
         if arrival.nextBus.isArriving { return theme.arriving }
         if arrival.nextBus.isSoon { return theme.soon }
         return theme.textPrimary
@@ -97,7 +109,7 @@ struct BusArrivalCard: View {
                 .foregroundColor(theme.textSecondary)
 
             if let min2 = arrival.nextBus2.minutesAway {
-                Text("\(min2) min")
+                Text(min2 <= 0 ? "Arr" : "\(min2) min")
                     .font(.system(.caption, design: .monospaced))
                     .fontWeight(.semibold)
                     .foregroundColor(theme.textPrimary)
@@ -112,7 +124,7 @@ struct BusArrivalCard: View {
                 Text(" · then ")
                     .font(.system(.caption, design: .monospaced))
                     .foregroundColor(theme.textSecondary)
-                Text("\(min3) min")
+                Text(min3 <= 0 ? "Arr" : "\(min3) min")
                     .font(.system(.caption, design: .monospaced))
                     .fontWeight(.semibold)
                     .foregroundColor(theme.textPrimary)

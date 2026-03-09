@@ -5,6 +5,18 @@ import WidgetKit
 struct LockScreenLiveActivityView: View {
     let context: ActivityViewContext<BusLiveActivityAttributes>
 
+    private var nextBusMinutes: Int? {
+        minutesFrom(context.state.nextBusArrival)
+    }
+
+    private var nextBus2Minutes: Int? {
+        minutesFrom(context.state.nextBus2Arrival)
+    }
+
+    private var nextBus3Minutes: Int? {
+        minutesFrom(context.state.nextBus3Arrival)
+    }
+
     var body: some View {
         VStack(spacing: 12) {
             // Top row: bus info + arrival
@@ -21,25 +33,27 @@ struct LockScreenLiveActivityView: View {
                 Spacer()
 
                 VStack(alignment: .trailing, spacing: 2) {
-                    if let minutes = context.state.nextBusMinutes {
+                    if let minutes = nextBusMinutes {
                         Text(minutes <= 0 ? "Arr" : "\(minutes) min")
                             .font(.system(size: 24, weight: .bold, design: .monospaced))
                             .monospacedDigit()
                             .contentTransition(.numericText())
                             .foregroundColor(arrivalColor)
                     } else {
-                        Text("-")
+                        Text("N/S")
                             .font(.system(size: 24, weight: .bold, design: .monospaced))
                             .foregroundStyle(.secondary)
                     }
-                    Text("to arrival")
-                        .font(.system(.caption2, design: .monospaced))
-                        .foregroundStyle(.secondary)
+                    if let minutes = nextBusMinutes, minutes > 0 {
+                        Text("to arrival")
+                            .font(.system(.caption2, design: .monospaced))
+                            .foregroundStyle(.secondary)
+                    }
                 }
             }
 
             // Progress bar
-            if let arrivalDate = context.state.nextBusArrivalDate {
+            if let arrivalDate = context.state.nextBusArrival, arrivalDate > .now {
                 ProgressView(
                     timerInterval: Date.now...arrivalDate,
                     countsDown: true
@@ -55,8 +69,8 @@ struct LockScreenLiveActivityView: View {
                     .font(.system(.caption, design: .monospaced))
                     .foregroundStyle(.secondary)
 
-                if let min2 = context.state.nextBus2Minutes {
-                    Text("\(min2) min")
+                if let min2 = nextBus2Minutes {
+                    Text(min2 <= 0 ? "Arr" : "\(min2) min")
                         .font(.system(.caption, design: .monospaced))
                         .fontWeight(.semibold)
                         .monospacedDigit()
@@ -67,11 +81,11 @@ struct LockScreenLiveActivityView: View {
                         .foregroundStyle(.secondary)
                 }
 
-                if let min3 = context.state.nextBus3Minutes {
+                if let min3 = nextBus3Minutes {
                     Text(" · then ")
                         .font(.system(.caption, design: .monospaced))
                         .foregroundStyle(.secondary)
-                    Text("\(min3) min")
+                    Text(min3 <= 0 ? "Arr" : "\(min3) min")
                         .font(.system(.caption, design: .monospaced))
                         .fontWeight(.semibold)
                         .monospacedDigit()
@@ -91,16 +105,21 @@ struct LockScreenLiveActivityView: View {
     }
 
     private var arrivalColor: Color {
-        guard let min = context.state.nextBusMinutes else { return .secondary }
+        guard let min = nextBusMinutes else { return .secondary }
         if min <= 1 { return Color(hex: 0x3A5CF5) }
         if min <= 4 { return Color(hex: 0xD4A017) }
         return .primary
     }
 
     private var progressTint: Color {
-        guard let min = context.state.nextBusMinutes else { return .white }
+        guard let min = nextBusMinutes else { return .white }
         if min <= 1 { return Color(hex: 0x3A5CF5) }
         if min <= 4 { return Color(hex: 0xD4A017) }
         return .white
+    }
+
+    private func minutesFrom(_ date: Date?) -> Int? {
+        guard let date else { return nil }
+        return max(0, Int(date.timeIntervalSince(Date.now) / 60))
     }
 }

@@ -1,0 +1,10 @@
+# Xcode
+build/
+.build/
+DerivedData/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+xcuserdata/
+
+# Secrets
+SGBus/Secrets.plist

@@ -13,7 +13,7 @@ enum BusType: String, Codable, CaseIterable {
         }
     }
 
-    var shortName: String { displayName.uppercased() }
+    var shortName: String { displayName }
 
     var color: Color {
         switch self {

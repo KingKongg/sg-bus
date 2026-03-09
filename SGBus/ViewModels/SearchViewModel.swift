@@ -41,8 +41,4 @@ final class SearchViewModel: ObservableObject {
     var hasResults: Bool {
         !busStopResults.isEmpty || !busServiceResults.isEmpty
     }
-
-    var popularStops: [BusStop] {
-        Array(MockBusService.stops.prefix(5))
-    }
 }

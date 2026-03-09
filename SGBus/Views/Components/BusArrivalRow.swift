@@ -33,7 +33,7 @@ struct BusArrivalRow: View {
                         onToggleFavourite()
                     } label: {
                         Image(systemName: isFavourite ? "star.fill" : "star")
-                            .font(.caption)
+                            .font(.system(.caption, design: .monospaced))
                             .foregroundColor(isFavourite ? theme.star : theme.textMuted)
                     }
                     .buttonStyle(.plain)
@@ -45,7 +45,15 @@ struct BusArrivalRow: View {
                     .foregroundColor(theme.textSecondary)
 
                 // Crowd indicator
-                CrowdIndicator(crowdLevel: arrival.crowdLevel)
+                HStack(spacing: 6) {
+                    CrowdIndicator(crowdLevel: arrival.crowdLevel)
+                    if arrival.isWheelchairAccessible {
+                        Image(systemName: "figure.roll")
+                            .font(.system(.caption2, design: .monospaced))
+                            .foregroundColor(theme.accent)
+                            .accessibilityLabel("Wheelchair accessible")
+                    }
+                }
             }
 
             Spacer()
@@ -58,10 +66,10 @@ struct BusArrivalRow: View {
                     .foregroundColor(primaryArrivalColor)
 
                 // Next two arrivals
-                if arrival.nextBus2.minutesAway != nil || arrival.nextBus3.minutesAway != nil {
+                if arrival.isOperating && (arrival.nextBus2.minutesAway != nil || arrival.nextBus3.minutesAway != nil) {
                     HStack(spacing: 0) {
                         if let min2 = arrival.nextBus2.minutesAway {
-                            Text("\(min2) min")
+                            Text(min2 <= 0 ? "Arr" : "\(min2) min")
                                 .font(.system(.caption2, design: .monospaced))
                                 .foregroundColor(theme.textSecondary)
                         }
@@ -71,7 +79,7 @@ struct BusArrivalRow: View {
                                 .foregroundColor(theme.textMuted)
                         }
                         if let min3 = arrival.nextBus3.minutesAway {
-                            Text("\(min3) min")
+                            Text(min3 <= 0 ? "Arr" : "\(min3) min")
                                 .font(.system(.caption2, design: .monospaced))
                                 .foregroundColor(theme.textSecondary)
                         }
@@ -81,15 +89,18 @@ struct BusArrivalRow: View {
         }
         .padding(.vertical, 12)
         .padding(.horizontal, 16)
+        .opacity(arrival.isOperating ? 1.0 : 0.5)
     }
 
     private var primaryArrivalText: String {
+        if !arrival.isOperating { return "Not in service" }
         guard let minutes = arrival.nextBus.minutesAway else { return "-" }
         if minutes <= 0 { return "Arr" }
         return "\(minutes) min"
     }
 
     private var primaryArrivalColor: Color {
+        if !arrival.isOperating { return theme.textMuted }
         if arrival.nextBus.isArriving { return theme.arriving }
         if arrival.nextBus.isSoon { return theme.soon }
         return theme.textPrimary

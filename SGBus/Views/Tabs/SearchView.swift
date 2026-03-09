@@ -29,20 +29,6 @@ struct SearchView: View {
                             }
                         }
                     }
-
-                    // Popular stops
-                    Section {
-                        ForEach(viewModel.popularStops) { stop in
-                            NavigationLink {
-                                BusStopDetailView(stop: stop)
-                            } label: {
-                                stopRow(stop)
-                            }
-                        }
-                    } header: {
-                        Text("Popular Stops")
-                            .font(.system(.caption, design: .monospaced))
-                    }
                 } else if viewModel.hasResults {
                     // Bus services results
                     if !viewModel.busServiceResults.isEmpty {
@@ -112,7 +98,7 @@ struct SearchView: View {
                 BusDetailView(serviceNo: recent.query)
             } else {
                 // Navigate to stop search
-                BusStopDetailView(stop: MockBusService.stops.first { $0.id == recent.query } ?? BusStop(id: recent.query, name: recent.displayName, road: "", distanceMetres: nil, busServices: []))
+                BusStopDetailView(stop: BusStop(id: recent.query, name: recent.displayName, road: "", distanceMetres: nil, busServices: []))
             }
         } label: {
             HStack(spacing: 8) {
@@ -123,9 +109,6 @@ struct SearchView: View {
                     .font(.system(.body, design: .monospaced))
                     .foregroundColor(theme.textPrimary)
                 Spacer()
-                Image(systemName: "arrow.up.left")
-                    .font(.caption)
-                    .foregroundColor(theme.textMuted)
             }
         }
     }
@@ -161,9 +144,6 @@ struct SearchView: View {
                 BusTypeBadge(busType: svc.busType)
             }
             Spacer()
-            Image(systemName: "chevron.right")
-                .font(.caption)
-                .foregroundColor(theme.textMuted)
         }
     }
 }

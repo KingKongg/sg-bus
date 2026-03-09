@@ -2,8 +2,9 @@ import SwiftUI
 
 @MainActor
 final class HomeViewModel: ObservableObject {
-    @Published var favouriteArrivals: [BusArrival] = []
+    @Published var favouriteArrivals: [(fav: FavouriteBus, arrival: BusArrival?)] = []
     @Published var isLoading = false
+    @Published var error: String?
 
     var greeting: String {
         let hour = Calendar.current.component(.hour, from: Date.now)
@@ -15,22 +16,38 @@ final class HomeViewModel: ObservableObject {
         }
     }
 
-    func loadFavourites(service: BusServiceProtocol, favourites: [String]) async {
+    func loadFavourites(service: BusServiceProtocol, favourites: [FavouriteBus]) async {
         isLoading = true
+        error = nil
         defer { isLoading = false }
 
-        var arrivals: [BusArrival] = []
+        var results: [(fav: FavouriteBus, arrival: BusArrival?)] = []
+
         for fav in favourites {
-            // Get arrivals from all stops for this service
-            let stops = await service.getNearbyStops()
-            for stop in stops {
-                let stopArrivals = await service.getArrivals(forStop: stop.id)
-                if let match = stopArrivals.first(where: { $0.serviceNo == fav }) {
-                    arrivals.append(match)
-                    break
+            var stopCode = fav.stopCode
+            if stopCode.isEmpty {
+                if let detail = await service.getBusServiceDetail(serviceNo: fav.serviceNo),
+                   let firstStop = detail.routeStops.first {
+                    stopCode = firstStop.id
+                } else {
+                    results.append((fav: fav, arrival: nil))
+                    continue
                 }
             }
+            do {
+                let arrivals = try await service.getArrivals(forStop: stopCode)
+                let match = arrivals.first { $0.serviceNo == fav.serviceNo }
+                results.append((fav: fav, arrival: match))
+            } catch is CancellationError {
+                return // Keep existing data visible
+            } catch let urlError as URLError where urlError.code == .cancelled {
+                return // Keep existing data visible
+            } catch {
+                results.append((fav: fav, arrival: nil))
+                self.error = error.localizedDescription
+            }
         }
-        favouriteArrivals = arrivals
+
+        favouriteArrivals = results
     }
 }

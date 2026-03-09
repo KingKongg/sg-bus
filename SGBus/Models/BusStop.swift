@@ -6,6 +6,8 @@ struct BusStop: Identifiable, Hashable {
     let road: String
     let distanceMetres: Int?
     let busServices: [String] // Bus service numbers
+    var latitude: Double?
+    var longitude: Double?
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)

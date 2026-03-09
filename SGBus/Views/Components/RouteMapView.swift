@@ -2,7 +2,6 @@ import SwiftUI
 
 struct RouteMapView: View {
     let stops: [BusStop]
-    let currentStopId: String?
 
     @EnvironmentObject private var theme: ThemeManager
 
@@ -21,8 +20,8 @@ struct RouteMapView: View {
                         }
 
                         Circle()
-                            .fill(stop.id == currentStopId ? theme.accent : theme.textMuted)
-                            .frame(width: stop.id == currentStopId ? 12 : 8, height: stop.id == currentStopId ? 12 : 8)
+                            .fill(theme.textMuted)
+                            .frame(width: 8, height: 8)
 
                         if index < stops.count - 1 {
                             Rectangle()
@@ -36,15 +35,8 @@ struct RouteMapView: View {
 
                     // Stop info
                     VStack(alignment: .leading, spacing: 2) {
-                        if stop.id == currentStopId {
-                            Text("You are here")
-                                .font(.system(.caption2, design: .monospaced))
-                                .fontWeight(.bold)
-                                .foregroundColor(theme.accent)
-                        }
                         Text(stop.name)
                             .font(.system(.subheadline, design: .monospaced))
-                            .fontWeight(stop.id == currentStopId ? .bold : .regular)
                             .foregroundColor(theme.textPrimary)
                         Text(stop.road)
                             .font(.system(.caption, design: .monospaced))

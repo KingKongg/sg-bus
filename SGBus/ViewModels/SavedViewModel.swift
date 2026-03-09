@@ -13,7 +13,7 @@ final class SavedViewModel: ObservableObject {
         for fav in favourites {
             let stops = await service.getNearbyStops()
             for stop in stops {
-                let stopArrivals = await service.getArrivals(forStop: stop.id)
+                let stopArrivals = (try? await service.getArrivals(forStop: stop.id)) ?? []
                 if let match = stopArrivals.first(where: { $0.serviceNo == fav }) {
                     arrivals.append(match)
                     break

@@ -7,9 +7,12 @@ struct BusLiveActivityAttributes: ActivityAttributes {
     let stopName: String
 
     struct ContentState: Codable, Hashable {
-        let nextBusMinutes: Int?
-        let nextBus2Minutes: Int?
-        let nextBus3Minutes: Int?
-        let nextBusArrivalDate: Date?
+        let nextBusArrival: Date?
+        let nextBus2Arrival: Date?
+        let nextBus3Arrival: Date?
+
+        var isOperating: Bool {
+            nextBusArrival != nil || nextBus2Arrival != nil || nextBus3Arrival != nil
+        }
     }
 }

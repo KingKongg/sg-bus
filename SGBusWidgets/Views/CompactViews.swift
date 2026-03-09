@@ -5,9 +5,13 @@ import WidgetKit
 struct CompactLeadingView: View {
     let context: ActivityViewContext<BusLiveActivityAttributes>
 
+    private var nextBusMinutes: Int? {
+        minutesFrom(context.state.nextBusArrival)
+    }
+
     var body: some View {
         ZStack {
-            if let arrivalDate = context.state.nextBusArrivalDate {
+            if let arrivalDate = context.state.nextBusArrival, arrivalDate > .now {
                 ProgressView(
                     timerInterval: Date.now...arrivalDate,
                     countsDown: true,
@@ -26,34 +30,49 @@ struct CompactLeadingView: View {
     }
 
     private var arrivalTint: Color {
-        guard let min = context.state.nextBusMinutes else { return .white }
+        guard let min = nextBusMinutes else { return .white }
         if min <= 1 { return Color(hex: 0x3A5CF5) }
         if min <= 4 { return Color(hex: 0xD4A017) }
         return .white
+    }
+
+    private func minutesFrom(_ date: Date?) -> Int? {
+        guard let date else { return nil }
+        return max(0, Int(date.timeIntervalSince(Date.now) / 60))
     }
 }
 
 struct CompactTrailingView: View {
     let context: ActivityViewContext<BusLiveActivityAttributes>
 
+    private var nextBusMinutes: Int? {
+        minutesFrom(context.state.nextBusArrival)
+    }
+
     var body: some View {
-        if let minutes = context.state.nextBusMinutes {
+        if let minutes = nextBusMinutes {
             Text(minutes <= 0 ? "Arr" : "\(minutes)m")
                 .font(.system(size: 14, weight: .bold, design: .monospaced))
                 .monospacedDigit()
                 .contentTransition(.numericText())
                 .foregroundColor(arrivalColor)
         } else {
-            Text("-")
+            Text("N/S")
                 .font(.system(size: 14, weight: .bold, design: .monospaced))
+                .foregroundStyle(.secondary)
         }
     }
 
     private var arrivalColor: Color {
-        guard let min = context.state.nextBusMinutes else { return .secondary }
+        guard let min = nextBusMinutes else { return .secondary }
         if min <= 1 { return Color(hex: 0x3A5CF5) }
         if min <= 4 { return Color(hex: 0xD4A017) }
         return .primary
+    }
+
+    private func minutesFrom(_ date: Date?) -> Int? {
+        guard let date else { return nil }
+        return max(0, Int(date.timeIntervalSince(Date.now) / 60))
     }
 }
 

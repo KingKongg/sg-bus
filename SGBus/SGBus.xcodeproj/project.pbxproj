@@ -37,6 +37,8 @@
 		ABD583652B87789303A1EB07 /* BusTypeBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46958141921BC0623FA264B /* BusTypeBadge.swift */; };
 		AFD8F1F721BFDF2226C23ABE /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B740651CDF9786B305034 /* SearchViewModel.swift */; };
 		B1B52D15AE67BF5C372E8F51 /* BusType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799EBFC334B5773E9D62D69C /* BusType.swift */; };
+		CC0001010000000000000001 /* BusOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0002020000000000000002 /* BusOperator.swift */; };
+		CC0001020000000000000002 /* BusOperatorBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0002030000000000000003 /* BusOperatorBadge.swift */; };
 		B298F916BC0D160CE41BAB19 /* ExpandedViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7A7190EE10A46A8EE0FDCF /* ExpandedViews.swift */; };
 		B5437578354E228A87A6E723 /* BusArrival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3595E3C72D8CF67E282754 /* BusArrival.swift */; };
 		E18F72BD2DD1D1E0A5ACB6B0 /* MockBusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C3B62E25E83756E5748DB /* MockBusService.swift */; };
@@ -44,6 +46,18 @@
 		E82AE532987EBA362B3D5CCA /* CrowdLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8493112C6CB34A6861898028 /* CrowdLevel.swift */; };
 		EA3E714B56853AA4F50B8503 /* BusArrivalRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885D75E2627327621B7738AE /* BusArrivalRow.swift */; };
 		F936047E10BFE30887C73D2D /* BusDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4E35F831D5A7E048624FB5 /* BusDetailView.swift */; };
+		AA0001010000000000000001 /* LTAModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002010000000000000001 /* LTAModels.swift */; };
+		AA0001020000000000000002 /* LTAClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002020000000000000002 /* LTAClient.swift */; };
+		AA0001030000000000000003 /* APIKeyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002030000000000000003 /* APIKeyProvider.swift */; };
+		AA0001040000000000000004 /* BusDataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002040000000000000004 /* BusDataCache.swift */; };
+		AA0001050000000000000005 /* LTABusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002050000000000000005 /* LTABusService.swift */; };
+		AA0004020000000000000002 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = AA0002060000000000000006 /* Secrets.plist */; };
+		BB0001010000000000000001 /* LTAModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0002010000000000000001 /* LTAModelsTests.swift */; };
+		BB0001020000000000000002 /* FavouritesManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0002020000000000000002 /* FavouritesManagerTests.swift */; };
+		BB0001030000000000000003 /* LTABusServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0002030000000000000003 /* LTABusServiceTests.swift */; };
+		BB0001040000000000000004 /* LTAClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0002040000000000000004 /* LTAClientTests.swift */; };
+		BB0001050000000000000005 /* PinManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0002050000000000000005 /* PinManagerTests.swift */; };
+		BB0001060000000000000006 /* BusArrivalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0002060000000000000006 /* BusArrivalTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +67,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = D9E4C1898ED754FED76AE3E3;
 			remoteInfo = SGBusWidgets;
+		};
+		BB0003010000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4B6366A03EA2ADFCEAA6D84 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AB902476CD718BCAE643551F;
+			remoteInfo = SGBus;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -89,6 +110,8 @@
 		6EE8CAFADC030A176FC863C3 /* BusStop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusStop.swift; sourceTree = "<group>"; };
 		725BFA4952F6F1429EF5897C /* BusArrivalCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusArrivalCard.swift; sourceTree = "<group>"; };
 		799EBFC334B5773E9D62D69C /* BusType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusType.swift; sourceTree = "<group>"; };
+		CC0002020000000000000002 /* BusOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusOperator.swift; sourceTree = "<group>"; };
+		CC0002030000000000000003 /* BusOperatorBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusOperatorBadge.swift; sourceTree = "<group>"; };
 		7C2B740651CDF9786B305034 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		7E2C9BB2E257CDA47349CA26 /* PinManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinManager.swift; sourceTree = "<group>"; };
 		8275532AD1095BCA729FADB9 /* BusLiveActivityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusLiveActivityWidget.swift; sourceTree = "<group>"; };
@@ -109,6 +132,20 @@
 		ED7A7190EE10A46A8EE0FDCF /* ExpandedViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedViews.swift; sourceTree = "<group>"; };
 		F3C0BFE98E75A0EDE59D9FC3 /* RouteMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMapView.swift; sourceTree = "<group>"; };
 		F4D84D031509C44DB52A7127 /* CompactViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactViews.swift; sourceTree = "<group>"; };
+		AA0002010000000000000001 /* LTAModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTAModels.swift; sourceTree = "<group>"; };
+		AA0002020000000000000002 /* LTAClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTAClient.swift; sourceTree = "<group>"; };
+		AA0002030000000000000003 /* APIKeyProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeyProvider.swift; sourceTree = "<group>"; };
+		AA0002040000000000000004 /* BusDataCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusDataCache.swift; sourceTree = "<group>"; };
+		AA0002050000000000000005 /* LTABusService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTABusService.swift; sourceTree = "<group>"; };
+		AA0002060000000000000006 /* Secrets.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
+		BB0002010000000000000001 /* LTAModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTAModelsTests.swift; sourceTree = "<group>"; };
+		BB0002020000000000000002 /* FavouritesManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesManagerTests.swift; sourceTree = "<group>"; };
+		BB0002030000000000000003 /* LTABusServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTABusServiceTests.swift; sourceTree = "<group>"; };
+		BB0002040000000000000004 /* LTAClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LTAClientTests.swift; sourceTree = "<group>"; };
+		BB0002050000000000000005 /* PinManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinManagerTests.swift; sourceTree = "<group>"; };
+		BB0002060000000000000006 /* BusArrivalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusArrivalTests.swift; sourceTree = "<group>"; };
+		BB0004010000000000000001 /* SGBusTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SGBusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC0002010000000000000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -116,6 +153,9 @@
 			isa = PBXGroup;
 			children = (
 				5B3437E42F922AFFBA3D5FED /* SGBusApp.swift */,
+				CC0002010000000000000001 /* Info.plist */,
+				AA0002060000000000000006 /* Secrets.plist */,
+				BB0005010000000000000001 /* SGBusTests */,
 				B1AF5DFFBCEB8993D2661C2B /* bus-app-brutal */,
 				549040E0DC19E6DE25A97CF3 /* LiveActivity */,
 				729C7AA3503F723B1DD3C41D /* Models */,
@@ -142,12 +182,33 @@
 		2214B98DFFCDA8F0794A91C8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				AA0003010000000000000001 /* API */,
+				AA0003020000000000000002 /* Cache */,
 				00162084AA88FA94F2122499 /* BusServiceProtocol.swift */,
 				0F3BD7477E2E8C169176F1DD /* FavouritesManager.swift */,
+				AA0002050000000000000005 /* LTABusService.swift */,
 				AC2C3B62E25E83756E5748DB /* MockBusService.swift */,
 				7E2C9BB2E257CDA47349CA26 /* PinManager.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		AA0003010000000000000001 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				AA0002030000000000000003 /* APIKeyProvider.swift */,
+				AA0002020000000000000002 /* LTAClient.swift */,
+				AA0002010000000000000001 /* LTAModels.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		AA0003020000000000000002 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				AA0002040000000000000004 /* BusDataCache.swift */,
+			);
+			path = Cache;
 			sourceTree = "<group>";
 		};
 		549040E0DC19E6DE25A97CF3 /* LiveActivity */ = {
@@ -163,6 +224,7 @@
 			children = (
 				593620956BCE540D9C45FA0E /* SGBus.app */,
 				A6F4C25E2F0A5F85679E7D99 /* SGBusWidgets.appex */,
+				BB0004010000000000000001 /* SGBusTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -172,6 +234,7 @@
 			children = (
 				00959F2C602468CB9848E4DB /* ArrivalTime.swift */,
 				2C3595E3C72D8CF67E282754 /* BusArrival.swift */,
+				CC0002020000000000000002 /* BusOperator.swift */,
 				CE629311B23EB2D66C97633C /* BusServiceModel.swift */,
 				6EE8CAFADC030A176FC863C3 /* BusStop.swift */,
 				799EBFC334B5773E9D62D69C /* BusType.swift */,
@@ -186,6 +249,7 @@
 				9B195D784B4F239BB4492073 /* ArrivalTimeBadge.swift */,
 				725BFA4952F6F1429EF5897C /* BusArrivalCard.swift */,
 				885D75E2627327621B7738AE /* BusArrivalRow.swift */,
+				CC0002030000000000000003 /* BusOperatorBadge.swift */,
 				A46958141921BC0623FA264B /* BusTypeBadge.swift */,
 				258A81FF93BD6EA221DAEA1A /* CrowdIndicator.swift */,
 				52F8BD3D2A413D54647C0A5A /* EmptyStateView.swift */,
@@ -269,6 +333,19 @@
 			path = SGBusWidgets;
 			sourceTree = "<group>";
 		};
+		BB0005010000000000000001 /* SGBusTests */ = {
+			isa = PBXGroup;
+			children = (
+				BB0002010000000000000001 /* LTAModelsTests.swift */,
+				BB0002020000000000000002 /* FavouritesManagerTests.swift */,
+				BB0002030000000000000003 /* LTABusServiceTests.swift */,
+				BB0002040000000000000004 /* LTAClientTests.swift */,
+				BB0002050000000000000005 /* PinManagerTests.swift */,
+				BB0002060000000000000006 /* BusArrivalTests.swift */,
+			);
+			path = SGBusTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -277,6 +354,7 @@
 			buildConfigurationList = E0771401716D5F87BF709386 /* Build configuration list for PBXNativeTarget "SGBus" */;
 			buildPhases = (
 				6771ED99C69F861453DFE949 /* Sources */,
+				AA0004010000000000000001 /* Resources */,
 				9B75AE778B98C24D5612BEC1 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
@@ -308,6 +386,24 @@
 			productReference = A6F4C25E2F0A5F85679E7D99 /* SGBusWidgets.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		BB0006010000000000000001 /* SGBusTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BB0009010000000000000001 /* Build configuration list for PBXNativeTarget "SGBusTests" */;
+			buildPhases = (
+				BB0007010000000000000001 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BB0008010000000000000001 /* PBXTargetDependency */,
+			);
+			name = SGBusTests;
+			packageProductDependencies = (
+			);
+			productName = SGBusTests;
+			productReference = BB0004010000000000000001 /* SGBusTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -333,9 +429,21 @@
 			targets = (
 				AB902476CD718BCAE643551F /* SGBus */,
 				D9E4C1898ED754FED76AE3E3 /* SGBusWidgets */,
+				BB0006010000000000000001 /* SGBusTests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA0004010000000000000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0004020000000000000002 /* Secrets.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6771ED99C69F861453DFE949 /* Sources */ = {
@@ -355,6 +463,8 @@
 				E77E0690ECC57C7B4FDF666F /* BusStop.swift in Sources */,
 				2B3FBE338E65B30EA12FACE4 /* BusStopDetailView.swift in Sources */,
 				2E68FCECEE70EC0755F24AC2 /* BusStopDetailViewModel.swift in Sources */,
+				CC0001010000000000000001 /* BusOperator.swift in Sources */,
+				CC0001020000000000000002 /* BusOperatorBadge.swift in Sources */,
 				B1B52D15AE67BF5C372E8F51 /* BusType.swift in Sources */,
 				ABD583652B87789303A1EB07 /* BusTypeBadge.swift in Sources */,
 				9655B8002C8E2C5E9C6BBA81 /* CrowdIndicator.swift in Sources */,
@@ -372,6 +482,11 @@
 				603B2FD3D362248F89C2B4E3 /* SearchView.swift in Sources */,
 				AFD8F1F721BFDF2226C23ABE /* SearchViewModel.swift in Sources */,
 				406BDDC02A39DFF959E19162 /* ThemeManager.swift in Sources */,
+				AA0001010000000000000001 /* LTAModels.swift in Sources */,
+				AA0001020000000000000002 /* LTAClient.swift in Sources */,
+				AA0001030000000000000003 /* APIKeyProvider.swift in Sources */,
+				AA0001040000000000000004 /* BusDataCache.swift in Sources */,
+				AA0001050000000000000005 /* LTABusService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +503,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BB0007010000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB0001010000000000000001 /* LTAModelsTests.swift in Sources */,
+				BB0001020000000000000002 /* FavouritesManagerTests.swift in Sources */,
+				BB0001030000000000000003 /* LTABusServiceTests.swift in Sources */,
+				BB0001040000000000000004 /* LTAClientTests.swift in Sources */,
+				BB0001050000000000000005 /* PinManagerTests.swift in Sources */,
+				BB0001060000000000000006 /* BusArrivalTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -395,6 +523,11 @@
 			isa = PBXTargetDependency;
 			target = D9E4C1898ED754FED76AE3E3 /* SGBusWidgets */;
 			targetProxy = 3D33928DA5B8797D608D492F /* PBXContainerItemProxy */;
+		};
+		BB0008010000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AB902476CD718BCAE643551F /* SGBus */;
+			targetProxy = BB0003010000000000000001 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -461,6 +594,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "SG Bus";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -482,6 +616,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "SG Bus";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -592,6 +727,32 @@
 			};
 			name = Release;
 		};
+		BB000A010000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sgbus.SGBusTests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SGBus.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SGBus";
+			};
+			name = Debug;
+		};
+		BB000A020000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sgbus.SGBusTests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SGBus.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SGBus";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -618,6 +779,15 @@
 			buildConfigurations = (
 				08C448B99357AEFD6284A7E1 /* Debug */,
 				3DC527B3E50BCF13F8432C2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BB0009010000000000000001 /* Build configuration list for PBXNativeTarget "SGBusTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB000A010000000000000001 /* Debug */,
+				BB000A020000000000000002 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

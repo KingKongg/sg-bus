@@ -59,7 +59,9 @@ final class MockBusService: BusServiceProtocol {
             nextBus2: ArrivalTime(estimatedArrival: Date.now.addingTimeInterval(offset2 * 60)),
             nextBus3: ArrivalTime(estimatedArrival: Date.now.addingTimeInterval(offset3 * 60)),
             busType: busType,
-            crowdLevel: CrowdLevel.allCases.randomElement()!
+            busOperator: BusOperator.allCases.filter { $0 != .unknown }.randomElement()!,
+            crowdLevel: CrowdLevel.allCases.randomElement()!,
+            isWheelchairAccessible: Bool.random()
         )
     }
 
@@ -73,7 +75,11 @@ final class MockBusService: BusServiceProtocol {
         Array(Self.stops.prefix(5))
     }
 
-    func getArrivals(forStop stopCode: String) async -> [BusArrival] {
+    func loadStaticData() async throws {
+        // No-op for mock
+    }
+
+    func getArrivals(forStop stopCode: String) async throws -> [BusArrival] {
         guard let stop = Self.stops.first(where: { $0.id == stopCode }) else { return [] }
         return stop.busServices.compactMap { serviceNo in
             guard let service = Self.services.first(where: { $0.id == serviceNo }) else { return nil }

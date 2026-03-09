@@ -8,6 +8,11 @@ struct BusDetailView: View {
     @EnvironmentObject private var pinManager: PinManager
     @Environment(\.busService) private var busService
     @StateObject private var viewModel: BusDetailViewModel
+    private let refreshTimer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
+
+    private var isFavourited: Bool {
+        favouritesManager.isFavourite(serviceNo)
+    }
 
     init(serviceNo: String) {
         self.serviceNo = serviceNo
@@ -29,14 +34,17 @@ struct BusDetailView: View {
                         Button {
                             let generator = UIImpactFeedbackGenerator(style: .light)
                             generator.impactOccurred()
-                            withAnimation(.easeOut(duration: 0.2)) { favouritesManager.toggleFavourite(serviceNo) }
+                            withAnimation(.easeOut(duration: 0.2)) {
+                                let stopCode = viewModel.serviceDetail?.routeStops.first?.id ?? ""
+                                favouritesManager.toggleFavourite(serviceNo, stopCode: stopCode)
+                            }
                         } label: {
-                            Image(systemName: favouritesManager.isFavourite(serviceNo) ? "star.fill" : "star")
-                                .font(.title)
-                                .foregroundColor(favouritesManager.isFavourite(serviceNo) ? theme.star : theme.textMuted)
+                            Image(systemName: isFavourited ? "star.fill" : "star")
+                                .font(.system(.title, design: .monospaced))
+                                .foregroundColor(isFavourited ? theme.star : theme.textMuted)
                                 .frame(width: 44, height: 44)
                         }
-                        .accessibilityLabel(favouritesManager.isFavourite(serviceNo) ? "Remove from favourites" : "Add to favourites")
+                        .accessibilityLabel(isFavourited ? "Remove from favourites" : "Add to favourites")
 
                         Button {
                             if pinManager.isPinned(serviceNo) {
@@ -53,7 +61,7 @@ struct BusDetailView: View {
                             }
                         } label: {
                             Image(systemName: pinManager.isPinned(serviceNo) ? "pin.fill" : "pin")
-                                .font(.title3)
+                                .font(.system(.title3, design: .monospaced))
                                 .foregroundColor(pinManager.isPinned(serviceNo) ? theme.accent : theme.textMuted)
                                 .frame(width: 44, height: 44)
                         }
@@ -70,9 +78,18 @@ struct BusDetailView: View {
 
                     // Bus type + crowd
                     HStack(spacing: 8) {
-                        BusTypeBadge(busType: detail.busType)
+                        BusTypeBadge(busType: viewModel.arrival?.busType ?? detail.busType)
+                        if let arrival = viewModel.arrival {
+                            BusOperatorBadge(busOperator: arrival.busOperator)
+                        }
                         if let arrival = viewModel.arrival {
                             CrowdIndicator(crowdLevel: arrival.crowdLevel)
+                            if arrival.isWheelchairAccessible {
+                                Image(systemName: "figure.roll")
+                                    .font(.system(.caption2, design: .monospaced))
+                                    .foregroundColor(theme.accent)
+                                    .accessibilityLabel("Wheelchair accessible")
+                            }
                         }
                     }
                 }
@@ -84,13 +101,28 @@ struct BusDetailView: View {
                             .font(.system(size: 44, weight: .bold, design: .monospaced))
                             .foregroundColor(primaryArrivalColor(arrival.nextBus))
 
-                        Text("to arrival")
-                            .font(.system(.body, design: .monospaced))
-                            .foregroundColor(theme.textSecondary)
+                        if !arrival.nextBus.isArriving {
+                            Text("to arrival")
+                                .font(.system(.body, design: .monospaced))
+                                .foregroundColor(theme.textSecondary)
+                        }
                     }
 
                     // Next arrivals
                     nextArrivalsRow(arrival)
+                }
+
+                if viewModel.isLoading && viewModel.serviceDetail == nil {
+                    ProgressView()
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.vertical, 24)
+                }
+
+                if let error = viewModel.error, viewModel.serviceDetail == nil {
+                    Text(error)
+                        .font(.system(.caption, design: .monospaced))
+                        .foregroundColor(.red)
+                        .padding(.vertical, 24)
                 }
 
                 Divider()
@@ -117,6 +149,9 @@ struct BusDetailView: View {
         .task {
             await viewModel.load(service: busService)
         }
+        .onReceive(refreshTimer) { _ in
+            Task { await viewModel.refreshArrivals(service: busService) }
+        }
     }
 
     // MARK: - Arrival helpers
@@ -140,7 +175,7 @@ struct BusDetailView: View {
                 .foregroundColor(theme.textSecondary)
 
             if let min2 = arrival.nextBus2.minutesAway {
-                Text("\(min2) min")
+                Text(min2 <= 0 ? "Arr" : "\(min2) min")
                     .font(.system(.caption, design: .monospaced))
                     .fontWeight(.semibold)
                     .foregroundColor(theme.textPrimary)
@@ -154,7 +189,7 @@ struct BusDetailView: View {
                 Text(" · then ")
                     .font(.system(.caption, design: .monospaced))
                     .foregroundColor(theme.textSecondary)
-                Text("\(min3) min")
+                Text(min3 <= 0 ? "Arr" : "\(min3) min")
                     .font(.system(.caption, design: .monospaced))
                     .fontWeight(.semibold)
                     .foregroundColor(theme.textPrimary)
@@ -167,8 +202,6 @@ struct BusDetailView: View {
     private func routeList(stops: [BusStop]) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             ForEach(Array(stops.enumerated()), id: \.element.id) { index, stop in
-                let isCurrent = stop.id == viewModel.serviceDetail?.routeStops.first?.id
-
                 VStack(alignment: .leading, spacing: 0) {
                     NavigationLink {
                         BusStopDetailView(stop: stop)
@@ -176,28 +209,21 @@ struct BusDetailView: View {
                         HStack(alignment: .center, spacing: 16) {
                             // Dot
                             Circle()
-                                .fill(isCurrent ? theme.accent : theme.textMuted)
-                                .frame(width: isCurrent ? 12 : 8, height: isCurrent ? 12 : 8)
+                                .fill(theme.textMuted)
+                                .frame(width: 8, height: 8)
                                 .frame(width: 16)
 
                             // Stop name
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(stop.name)
                                     .font(.system(.body, design: .monospaced))
-                                    .fontWeight(isCurrent ? .bold : .regular)
                                     .foregroundColor(theme.textPrimary)
-
-                                if isCurrent {
-                                    Text("You are here")
-                                        .font(.system(.caption, design: .monospaced))
-                                        .foregroundColor(theme.accent)
-                                }
                             }
 
                             Spacer()
 
                             Image(systemName: "chevron.right")
-                                .font(.caption)
+                                .font(.system(.caption, design: .monospaced))
                                 .foregroundColor(theme.textMuted)
                         }
                         .padding(.vertical, 12)

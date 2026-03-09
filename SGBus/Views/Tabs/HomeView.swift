@@ -7,6 +7,7 @@ struct HomeView: View {
     @Environment(\.busService) private var busService
     @StateObject private var viewModel = HomeViewModel()
     @Binding var selectedTab: Int
+    private let refreshTimer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
 
     var body: some View {
         NavigationStack {
@@ -14,6 +15,25 @@ struct HomeView: View {
                 VStack(alignment: .leading, spacing: 20) {
                     // Header
                     headerSection
+
+                    // Error banner
+                    if let error = viewModel.error {
+                        HStack {
+                            Image(systemName: "exclamationmark.triangle")
+                            Text(error)
+                            Spacer()
+                            Button("Retry") {
+                                Task {
+                                    await viewModel.loadFavourites(service: busService, favourites: favouritesManager.favouriteBuses)
+                                }
+                            }
+                        }
+                        .font(.system(.caption, design: .monospaced))
+                        .foregroundColor(.red)
+                        .padding(12)
+                        .background(Color.red.opacity(0.1))
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                    }
 
                     // Favourites
                     if !favouritesManager.favouriteBuses.isEmpty {
@@ -36,6 +56,9 @@ struct HomeView: View {
         }
         .task {
             await viewModel.loadFavourites(service: busService, favourites: favouritesManager.favouriteBuses)
+        }
+        .onReceive(refreshTimer) { _ in
+            Task { await viewModel.loadFavourites(service: busService, favourites: favouritesManager.favouriteBuses) }
         }
         .onChange(of: favouritesManager.favouriteBuses) {
             Task {
@@ -60,22 +83,38 @@ struct HomeView: View {
                     .foregroundColor(theme.textPrimary)
             }
 
-            ForEach(viewModel.favouriteArrivals) { arrival in
-                NavigationLink {
-                    BusDetailView(serviceNo: arrival.serviceNo)
-                } label: {
-                    BusArrivalCard(
-                        arrival: arrival,
-                        isFavourite: true,
-                        isPinned: pinManager.isPinned(arrival.serviceNo),
-                        onToggleFavourite: {
-                            withAnimation(.easeOut(duration: 0.2)) { favouritesManager.toggleFavourite(arrival.serviceNo) }
-                        }
-                    )
+            ForEach(viewModel.favouriteArrivals, id: \.fav.id) { item in
+                if let arrival = item.arrival {
+                    NavigationLink {
+                        BusDetailView(serviceNo: arrival.serviceNo)
+                    } label: {
+                        BusArrivalCard(
+                            arrival: arrival,
+                            isFavourite: true,
+                            isPinned: pinManager.isPinned(arrival.serviceNo),
+                            onToggleFavourite: {
+                                withAnimation(.easeOut(duration: 0.2)) { favouritesManager.toggleFavourite(item.fav.serviceNo, stopCode: item.fav.stopCode) }
+                            }
+                        )
+                    }
+                    .buttonStyle(.plain)
+                } else {
+                    HStack {
+                        Text(item.fav.serviceNo)
+                            .font(.system(.title3, design: .monospaced))
+                            .fontWeight(.bold)
+                            .foregroundColor(theme.textPrimary)
+                        Spacer()
+                        Text("Not in service")
+                            .font(.system(.caption, design: .monospaced))
+                            .foregroundColor(theme.textMuted)
+                    }
+                    .padding(16)
+                    .background(theme.surface)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .overlay(RoundedRectangle(cornerRadius: 12).stroke(theme.border, lineWidth: 1))
                 }
-                .buttonStyle(.plain)
             }
-            .animation(.snappy, value: viewModel.favouriteArrivals)
         }
     }
 }
