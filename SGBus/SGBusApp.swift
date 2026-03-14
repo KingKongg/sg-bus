@@ -6,6 +6,7 @@ struct SGBusApp: App {
     @StateObject private var theme = ThemeManager()
     @StateObject private var favouritesManager = FavouritesManager()
     @StateObject private var pinManager = PinManager()
+    @StateObject private var locationManager = LocationManager()
     @State private var selectedTab = 0
     @State private var isLoadingStaticData = true
     @State private var loadError: String?
@@ -32,17 +33,23 @@ struct SGBusApp: App {
                         }
                         .tag(0)
 
+                    NearbyView()
+                        .tabItem {
+                            Label("Nearby", systemImage: "location.fill")
+                        }
+                        .tag(1)
+
                     SearchView()
                         .tabItem {
                             Label("Search", systemImage: "magnifyingglass")
                         }
-                        .tag(1)
+                        .tag(2)
 
                     MeView()
                         .tabItem {
                             Label("Me", systemImage: "person.fill")
                         }
-                        .tag(2)
+                        .tag(3)
                 }
 
                 if isLoadingStaticData {
@@ -68,6 +75,7 @@ struct SGBusApp: App {
             .environmentObject(theme)
             .environmentObject(favouritesManager)
             .environmentObject(pinManager)
+            .environmentObject(locationManager)
             .environment(\.busService, busService)
             .preferredColorScheme(theme.colorScheme)
             .tint(theme.accent)

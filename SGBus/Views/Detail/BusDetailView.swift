@@ -1,3 +1,4 @@
+import MapKit
 import SwiftUI
 
 struct BusDetailView: View {
@@ -8,6 +9,7 @@ struct BusDetailView: View {
     @EnvironmentObject private var pinManager: PinManager
     @Environment(\.busService) private var busService
     @StateObject private var viewModel: BusDetailViewModel
+    @State private var showRouteMap = false
     private let refreshTimer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
 
     private var isFavourited: Bool {
@@ -130,11 +132,23 @@ struct BusDetailView: View {
 
                 // Route section
                 if let detail = viewModel.serviceDetail, !detail.routeStops.isEmpty {
-                    Text("ROUTE")
-                        .font(.system(.caption, design: .monospaced))
-                        .fontWeight(.bold)
-                        .foregroundColor(theme.textSecondary)
-                        .padding(.top, 4)
+                    HStack {
+                        Text("ROUTE")
+                            .font(.system(.caption, design: .monospaced))
+                            .fontWeight(.bold)
+                            .foregroundColor(theme.textSecondary)
+
+                        Spacer()
+
+                        Button {
+                            showRouteMap = true
+                        } label: {
+                            Image(systemName: "map")
+                                .font(.system(.caption, design: .monospaced))
+                                .foregroundColor(theme.accent)
+                        }
+                    }
+                    .padding(.top, 4)
 
                     routeList(stops: detail.routeStops)
                 }
@@ -143,6 +157,16 @@ struct BusDetailView: View {
         }
         .background(theme.background)
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $showRouteMap) {
+            if let detail = viewModel.serviceDetail {
+                BusRouteMapView(
+                    serviceNo: serviceNo,
+                    routeStops: detail.routeStops,
+                    arrival: viewModel.arrival
+                )
+                .environmentObject(theme)
+            }
+        }
         .refreshable {
             await viewModel.load(service: busService)
         }
@@ -231,16 +255,16 @@ struct BusDetailView: View {
                     .buttonStyle(.plain)
 
                     // Connecting line + divider
-                    HStack(alignment: .top, spacing: 16) {
-                        if index < stops.count - 1 {
+                    if index < stops.count - 1 {
+                        HStack(alignment: .top, spacing: 16) {
                             Rectangle()
                                 .fill(theme.textMuted.opacity(0.4))
                                 .frame(width: 2, height: 8)
                                 .frame(width: 16)
-                        }
 
-                        Divider()
-                            .background(theme.border)
+                            Divider()
+                                .background(theme.border)
+                        }
                     }
                 }
             }

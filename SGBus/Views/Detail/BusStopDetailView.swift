@@ -85,7 +85,7 @@ struct BusStopDetailView: View {
                         } label: {
                             BusArrivalRow(
                                 arrival: arrival,
-                                isFavourite: favouritesManager.isFavourite(arrival.serviceNo),
+                                isFavourite: favouritesManager.isFavourite(serviceNo: arrival.serviceNo, stopCode: stop.id),
                                 onToggleFavourite: {
                                     withAnimation(.easeOut(duration: 0.2)) { favouritesManager.toggleFavourite(arrival.serviceNo, stopCode: stop.id) }
                                 }

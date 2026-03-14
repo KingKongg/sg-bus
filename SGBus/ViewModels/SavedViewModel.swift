@@ -11,7 +11,7 @@ final class SavedViewModel: ObservableObject {
 
         var arrivals: [BusArrival] = []
         for fav in favourites {
-            let stops = await service.getNearbyStops()
+            let stops = await service.getNearbyStops(latitude: 1.3521, longitude: 103.8198, radius: 5000)
             for stop in stops {
                 let stopArrivals = (try? await service.getArrivals(forStop: stop.id)) ?? []
                 if let match = stopArrivals.first(where: { $0.serviceNo == fav }) {

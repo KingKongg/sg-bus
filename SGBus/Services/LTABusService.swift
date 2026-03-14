@@ -27,9 +27,26 @@ final class LTABusService: BusServiceProtocol {
 
     // MARK: - Protocol
 
-    func getNearbyStops() async -> [BusStop] {
-        // Deferred — return empty
-        []
+    func getNearbyStops(latitude: Double, longitude: Double, radius: Double) async -> [BusStop] {
+        let allStops = await cache.busStops
+        let servicesByStop = await cache.servicesByStop
+
+        return allStops.compactMap { ltaStop -> BusStop? in
+            let dist = LocationManager.haversineDistance(
+                lat1: latitude, lon1: longitude,
+                lat2: ltaStop.latitude, lon2: ltaStop.longitude
+            )
+            guard dist <= radius else { return nil }
+            return BusStop(
+                id: ltaStop.busStopCode,
+                name: ltaStop.description,
+                road: ltaStop.roadName,
+                distanceMetres: Int(dist),
+                busServices: servicesByStop[ltaStop.busStopCode] ?? [],
+                latitude: ltaStop.latitude,
+                longitude: ltaStop.longitude
+            )
+        }.sorted { ($0.distanceMetres ?? 0) < ($1.distanceMetres ?? 0) }
     }
 
     func getArrivals(forStop stopCode: String) async throws -> [BusArrival] {

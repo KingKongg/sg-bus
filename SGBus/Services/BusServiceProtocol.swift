@@ -1,7 +1,7 @@
 import SwiftUI
 
 protocol BusServiceProtocol {
-    func getNearbyStops() async -> [BusStop]
+    func getNearbyStops(latitude: Double, longitude: Double, radius: Double) async -> [BusStop]
     func getArrivals(forStop stopCode: String) async throws -> [BusArrival]
     func searchBusStops(query: String) async -> [BusStop]
     func searchBusServices(query: String) async -> [BusServiceModel]

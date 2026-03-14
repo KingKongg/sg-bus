@@ -71,8 +71,19 @@ final class MockBusService: BusServiceProtocol {
 
     // MARK: - Protocol
 
-    func getNearbyStops() async -> [BusStop] {
-        Array(Self.stops.prefix(5))
+    func getNearbyStops(latitude: Double, longitude: Double, radius: Double) async -> [BusStop] {
+        // Return mock stops with distances for preview
+        Self.stops.prefix(5).enumerated().map { index, stop in
+            BusStop(
+                id: stop.id,
+                name: stop.name,
+                road: stop.road,
+                distanceMetres: (index + 1) * 50,
+                busServices: stop.busServices,
+                latitude: 1.3521 + Double(index) * 0.001,
+                longitude: 103.8198 + Double(index) * 0.001
+            )
+        }
     }
 
     func loadStaticData() async throws {

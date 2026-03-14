@@ -226,7 +226,7 @@ final class PinManagerRefreshTests: XCTestCase {
 private final class ErrorThrowingBusService: BusServiceProtocol {
     struct ServiceError: Error {}
 
-    func getNearbyStops() async -> [BusStop] { [] }
+    func getNearbyStops(latitude: Double, longitude: Double, radius: Double) async -> [BusStop] { [] }
     func loadStaticData() async throws { }
     func getArrivals(forStop stopCode: String) async throws -> [BusArrival] {
         throw ServiceError()
